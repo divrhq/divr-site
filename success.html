@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>You're on the list — DIVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #00b4ff;
+    --blue-bright: #1ec8ff;
+    --blue-deep: #0095d9;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #141414;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-soft: #b3b3b3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background:
+      radial-gradient(ellipse at top, rgba(0, 180, 255, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(0, 180, 255, 0.08) 0%, transparent 60%),
+      var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  }
+  .container {
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .check-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    background: rgba(0, 180, 255, 0.15);
+    border: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(0, 180, 255, 0.3);
+  }
+  .check-circle svg {
+    width: 40px;
+    height: 40px;
+    color: var(--blue);
+  }
+  .eyebrow {
+    font-weight: 600;
+    color: var(--blue);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em {
+    color: var(--blue);
+    font-style: normal;
+  }
+  p {
+    font-size: 1.15rem;
+    color: var(--grey-soft);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--blue);
+    color: var(--black);
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px -8px rgba(0, 180, 255, 0.4);
+  }
+  .back-link:hover {
+    background: var(--blue-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(0, 180, 255, 0.6);
+  }
+  .brand {
+    position: absolute;
+    top: 1.5rem;
+    left: 3rem;
+    font-family: 'Mitr', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+    z-index: 3;
+  }
+  @media (max-width: 768px) {
+    .brand { left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <a href="/" class="brand">DIVR</a>
+  <div class="container">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="eyebrow">You're on the list</div>
+    <h1>See you on <em>launch day.</em> 🤿</h1>
+    <p>Thanks for signing up. We'll send one email — and only one — the moment DIVR is live on the App Store.</p>
+    <a href="/" class="back-link">
+      Back to DIVR
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</body>
+</html>

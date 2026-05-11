@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms of Service — DIVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #00b4ff;
+    --blue-bright: #1ec8ff;
+    --blue-deep: #0095d9;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #141414;
+    --dark-soft: #1c1c1c;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-soft: #b3b3b3;
+    --warning: #ffb547;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 1.5rem; letter-spacing: -0.02em; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-back {
+    color: var(--grey-soft); text-decoration: none;
+    font-weight: 500; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  .page-header {
+    padding: 10rem 2rem 4rem;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at top, rgba(0, 180, 255, 0.18) 0%, transparent 60%),
+      var(--black);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .page-eyebrow {
+    font-weight: 600; color: var(--blue);
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .page-title {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .page-meta { color: var(--grey); font-size: 0.95rem; }
+
+  .page-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 7rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+  }
+  .toc-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--grey);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .toc ul { list-style: none; }
+  .toc a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--grey-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-left: 2px solid transparent;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc a:hover { color: var(--white); border-color: rgba(0, 180, 255, 0.4); }
+
+  .content { max-width: 720px; }
+  .content > .intro { color: var(--grey-soft); font-size: 1.05rem; margin-bottom: 1.25rem; }
+  .content h2 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    scroll-margin-top: 6rem;
+  }
+  .content h2:first-of-type { margin-top: 2rem; }
+  .content h2 .num { color: var(--blue); margin-right: 0.4rem; font-weight: 600; }
+  .content h3 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .content p {
+    color: var(--grey-soft);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .content ul, .content ol {
+    color: var(--grey-soft);
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .content li { margin-bottom: 0.5rem; }
+  .content a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    transition: border-color 0.2s;
+  }
+  .content a:hover { border-color: var(--blue); }
+  .content strong { color: var(--white); font-weight: 600; }
+  .content em { color: var(--grey-soft); font-style: italic; }
+
+  /* Special "safety disclaimer" callout for section 1 */
+  .safety-callout {
+    background: linear-gradient(135deg, rgba(255, 181, 71, 0.12), rgba(255, 107, 107, 0.08));
+    border: 1px solid rgba(255, 181, 71, 0.4);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .safety-callout h2 {
+    margin-top: 0 !important;
+    color: var(--warning) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.5rem !important;
+  }
+  .safety-callout h2 .num { color: var(--warning) !important; }
+
+  /* Legal "all-caps" sections (disclaimer & liability) */
+  .legalese p, .legalese li {
+    font-size: 0.95rem;
+    color: var(--grey-soft);
+  }
+
+  /* Consumer-rights note (within section 13) */
+  .consumer-note {
+    background: rgba(0, 180, 255, 0.08);
+    border-left: 3px solid var(--blue);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 1.5rem;
+    border-radius: 0 8px 8px 0;
+  }
+  .consumer-note p { margin-bottom: 0; }
+
+  footer {
+    background: var(--black);
+    color: var(--grey-soft);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-content {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 2rem; color: var(--white); letter-spacing: -0.02em;
+  }
+  .footer-tagline {
+    font-family: 'Mitr', sans-serif;
+    margin-top: 0.5rem; color: var(--blue);
+  }
+  .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: var(--grey-soft);
+    text-decoration: none; margin-bottom: 0.6rem;
+    font-size: 0.95rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--blue); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.85rem; color: var(--grey);
+  }
+
+  @media (max-width: 900px) {
+    .page-body { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; }
+    .toc { position: static; max-height: none; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-header { padding: 8rem 1.5rem 3rem; }
+    .footer-content { flex-direction: column; }
+    .safety-callout { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">DIVR</a>
+  <a href="/" class="nav-back">← Back to DIVR</a>
+</nav>
+
+<header class="page-header">
+  <div class="page-eyebrow">Legal</div>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="page-meta">Last updated: 11 May 2026</p>
+</header>
+
+<div class="page-body">
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <ul>
+      <li><a href="#safety">1. Safety disclaimer</a></li>
+      <li><a href="#eligibility">2. Eligibility</a></li>
+      <li><a href="#account">3. Your account</a></li>
+      <li><a href="#licence">4. Licence to use the app</a></li>
+      <li><a href="#content">5. Your content</a></li>
+      <li><a href="#ai">6. AI logbook scanning</a></li>
+      <li><a href="#use">7. Acceptable use</a></li>
+      <li><a href="#community">8. Community guidelines &amp; reporting</a></li>
+      <li><a href="#copyright">9. Copyright complaints</a></li>
+      <li><a href="#paid">10. Paid features</a></li>
+      <li><a href="#availability">11. Service availability</a></li>
+      <li><a href="#ip">12. Intellectual property</a></li>
+      <li><a href="#third-party">13. Third-party services</a></li>
+      <li><a href="#disclaimer">14. Disclaimer of warranties</a></li>
+      <li><a href="#liability">15. Limitation of liability</a></li>
+      <li><a href="#indemnification">16. Indemnification</a></li>
+      <li><a href="#termination">17. Termination</a></li>
+      <li><a href="#apple">18. Apple App Store terms</a></li>
+      <li><a href="#law">19. Governing law</a></li>
+      <li><a href="#general">20. General</a></li>
+      <li><a href="#contact">21. Contact</a></li>
+    </ul>
+  </aside>
+
+  <article class="content">
+    <p class="intro">These Terms of Service ("Terms") form a binding agreement between you and Rafferty Clarke Mathews ("we," "us," or "our") and govern your use of DIVR (the "App"), a scuba dive logging application available on iOS.</p>
+    <p class="intro">Please read these Terms carefully. They contain important information about your rights and obligations, including limitations on our liability and a critical safety disclaimer about scuba diving.</p>
+    <p class="intro">By downloading, installing, or using the App, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, do not use the App.</p>
+
+    <div class="safety-callout">
+      <h2 id="safety"><span class="num">1.</span> ⚠️ Critical Safety Disclaimer — Please Read</h2>
+      <p><strong>The App is a logging and record-keeping tool only.</strong> It is not a dive computer, dive planner, decompression calculator, or safety device.</p>
+      <p>You must not rely on the App to:</p>
+      <ul>
+        <li>Plan dives or calculate decompression schedules</li>
+        <li>Monitor depth, time, ascent rates, or no-decompression limits during a dive</li>
+        <li>Replace a certified dive computer, dive tables, or any safety equipment</li>
+        <li>Make any decision affecting your safety underwater or on the surface</li>
+        <li>Replace proper training, certification, or supervision by a qualified dive professional</li>
+      </ul>
+      <p>Scuba diving is an inherently dangerous activity that can result in serious injury or death. You are solely responsible for your own safety, your dive planning, your equipment, your physical fitness to dive, your adherence to safe diving practices, and your compliance with the rules of any certification agency, dive operator, or jurisdiction. You must always dive within the limits of your training and certification, use appropriate safety equipment including a certified dive computer, and follow established safe diving practices.</p>
+      <p>We expressly disclaim any responsibility for decisions you make based on data displayed by, recorded in, imported into, or extracted by the App, including data extracted by the AI logbook scanning feature.</p>
+      <p><strong>Location and dive site information.</strong> You are responsible for deciding what location and dive site information to share, and with whom. Sharing precise locations of dive sites, vessels, dive boats, or activities may have safety, security, environmental, or legal implications — for example, revealing the location of fragile or protected ecosystems, secret or sensitive sites, or your own real-time movements. You should consider your privacy settings carefully, especially if you work in a sensitive role (such as military, law enforcement, or scientific research at undisclosed sites), or dive at sites where local guidance is to keep the location private. To the maximum extent permitted by law, we are not responsible for any consequences arising from location or dive site information you choose to share.</p>
+    </div>
+
+    <h2 id="eligibility"><span class="num">2.</span> Eligibility</h2>
+    <p>You must be at least 13 years old to use the App (16 in some EU jurisdictions, or the minimum age required by applicable law in your country, whichever is higher). By using the App, you confirm that you meet this requirement and that you have the legal capacity to enter into these Terms.</p>
+    <p>We do not knowingly collect information from anyone below the minimum age. If we become aware that someone below the minimum age has created an account, we will close the account and delete the associated information.</p>
+    <p>If you are a parent or guardian and want to manage how a minor in your household uses iOS apps, including DIVR, we recommend using <a href="https://www.apple.com/family-sharing/" target="_blank" rel="noopener">Apple Family Sharing</a> and parental controls, which give you tools to approve downloads, screen time, and content restrictions.</p>
+
+    <h2 id="account"><span class="num">3.</span> Your Account</h2>
+    <p>To use most features of the App, you need an account. You agree to:</p>
+    <ul>
+      <li>Provide accurate and current information.</li>
+      <li>Keep your password confidential and not share your account.</li>
+      <li>Notify us promptly if you suspect unauthorised access.</li>
+      <li>Be responsible for all activity that occurs under your account.</li>
+    </ul>
+    <p>We may suspend or terminate accounts that violate these Terms or that we reasonably believe pose a risk to other users, the App, or us.</p>
+    <p>You can delete your account at any time within the App via <strong>Settings → Account → Delete Account</strong>, or by contacting us.</p>
+
+    <h2 id="licence"><span class="num">4.</span> Licence to Use the App</h2>
+    <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, non-sublicensable, revocable licence to download and use the App on Apple devices that you own or control, solely for your personal, non-commercial use.</p>
+    <p>This licence does not allow you to:</p>
+    <ul>
+      <li>Copy, modify, reverse-engineer, decompile, or disassemble the App, except where applicable law expressly permits.</li>
+      <li>Distribute, sublicense, sell, rent, or lease the App.</li>
+      <li>Remove or alter any proprietary notices.</li>
+      <li>Use the App to build a competing product.</li>
+      <li>Use the App in a way that violates any applicable law.</li>
+    </ul>
+    <p>All rights not expressly granted to you are reserved.</p>
+
+    <h2 id="content"><span class="num">5.</span> Your Content</h2>
+    <p>The App allows you to record, upload, and store dive log data, photographs, logbook scans, notes, and other content ("Your Content").</p>
+
+    <p><strong>Ownership.</strong> You retain all rights to Your Content. We do not claim ownership over your dive logs, scans, or any data you input.</p>
+
+    <p><strong>Your responsibility.</strong> You are responsible for the accuracy, legality, and appropriateness of Your Content. You must not upload content that:</p>
+    <ul>
+      <li>Infringes anyone else's intellectual property, privacy, or other rights.</li>
+      <li>Is unlawful, defamatory, harassing, or otherwise objectionable.</li>
+      <li>Contains malware or harmful code.</li>
+      <li>Includes other people's personal information without their consent.</li>
+    </ul>
+
+    <p><strong>Visibility.</strong> DIVR is a social platform. Some content you post may be visible to other users — including users you don't know personally and people who are not registered on DIVR — depending on the visibility settings you choose. You control visibility through your account and per-post privacy settings, and you can change those settings at any time. Even where you set content to private, certain limited information (such as your username) may still appear in places like our search results or moderation logs.</p>
+
+    <p><strong>Licence to us.</strong> You grant us a limited, worldwide, non-exclusive, royalty-free licence — which we may extend to our service providers only to the extent needed to run the App — to host, store, transmit, process, and display Your Content for the purposes of operating, providing, improving, and promoting the App. This includes:</p>
+    <ul>
+      <li>Making Your Content visible to other users in accordance with the privacy settings you choose (for example, displaying your dive posts in followers' feeds or on your public profile).</li>
+      <li>Processing logbook scan images through our AI extraction service, as described in our Privacy Policy and in Section 6 of these Terms.</li>
+      <li>Showing anonymised, aggregated, or non-identifying information derived from Your Content (for example, "dives logged this week" totals or popular dive site rankings).</li>
+    </ul>
+    <p>We will <strong>not</strong> sell Your Content or license it to third parties for their independent commercial use, and we will not use your photos, dive logs, or other identifiable content in paid advertising without your permission.</p>
+
+    <p><strong>How this licence ends.</strong> The licence above ends when you delete the relevant content or your account, except: (a) where retention is required for backup, legal, or operational reasons as described in the Privacy Policy; (b) for content shared with other users that has already been viewed or saved by them; and (c) for non-identifying aggregated data derived from Your Content before deletion.</p>
+
+    <h2 id="ai"><span class="num">6.</span> The AI Logbook Scanning Feature</h2>
+    <p>The App includes a feature that uses artificial intelligence to extract dive data from photographs of physical logbook pages.</p>
+    <p>You acknowledge and agree that:</p>
+    <ul>
+      <li><strong>AI extraction is not guaranteed to be accurate.</strong> The AI may misread handwriting, miss fields, swap units, hallucinate values that aren't on the page, or make other errors.</li>
+      <li>You are responsible for reviewing and verifying every extracted field before saving any dive log entry.</li>
+      <li>Inaccurate dive log data could affect future decisions about repetitive dives, residual nitrogen, or dive planning. You must not rely on AI-extracted data without independent verification, and you must always defer to your dive computer and original logbook records for safety-critical information.</li>
+      <li>Logbook scan images are processed by a third-party AI service (Google Gemini via Firebase AI Logic) as described in our Privacy Policy.</li>
+      <li><strong>We do not retain logbook scan images.</strong> Scan images are sent to the AI service solely to extract dive data, and are not stored in your account, used to train AI models, or kept by us after processing. Once your extracted dive data has been returned to you, the original scan image is discarded. You should keep your own copy of any logbook page you want to preserve.</li>
+    </ul>
+    <p>We make no warranty about the accuracy, completeness, or reliability of AI-extracted data.</p>
+
+    <h2 id="use"><span class="num">7.</span> Acceptable Use</h2>
+    <p>This section covers technical and legal restrictions on how you may use the App. For rules on content and how you interact with other users, see Section 8 (Community Guidelines and Reporting).</p>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use the App for any unlawful purpose.</li>
+      <li>Attempt to gain unauthorised access to the App, our servers, or other users' accounts.</li>
+      <li>Interfere with or disrupt the App or its underlying infrastructure.</li>
+      <li>Use bots, scrapers, or automated tools to access or extract data from the App.</li>
+      <li>Submit false, misleading, or fraudulent information.</li>
+      <li>Abuse the AI scanning feature (e.g. submitting non-logbook content at high volume to consume our resources).</li>
+      <li>Circumvent any usage limits, paywalls, or access controls.</li>
+    </ul>
+    <p>We reserve the right to enforce reasonable usage limits to protect the App's availability and our infrastructure costs, including limits on the number of AI scans per user per day or month.</p>
+
+    <h2 id="community"><span class="num">8.</span> Community Guidelines and Reporting</h2>
+    <p>In addition to these Terms, your use of the App is subject to our <a href="community.html">Community Guidelines</a>, which set out the rules for content, conduct, and interactions on the App. The Community Guidelines form part of these Terms and breaching them is a breach of these Terms.</p>
+    <p>If you encounter content or behaviour that violates the Community Guidelines or these Terms, you can report it:</p>
+    <ul>
+      <li><strong>In the App</strong> — using the report option available on posts, profiles, comments, and direct messages.</li>
+      <li><strong>By email</strong> — at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</li>
+    </ul>
+    <p>We aim to review reports within 48 hours. Depending on what we find, we may take action including warnings, content removal, account suspension, or permanent termination. For serious violations — including content involving minors, credible threats of violence, or illegal activity — we may report to law enforcement and cooperate with their investigations.</p>
+    <p>If your content is removed or your account is restricted, we will tell you what happened and why, and you may appeal by replying to that notice or emailing <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>. Bans for the most serious violations are final.</p>
+
+    <h2 id="copyright"><span class="num">9.</span> Copyright Complaints</h2>
+    <p>We respect intellectual property rights and expect users to do the same. If you believe content on the App infringes your copyright, please email <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> with:</p>
+    <ul>
+      <li>A description of the copyrighted work you claim has been infringed.</li>
+      <li>The location of the allegedly infringing content on the App (e.g. a link, username, or post identifier).</li>
+      <li>Your name, address, telephone number, and email address.</li>
+      <li>A statement that you have a good-faith belief that the use of the material is not authorised by the copyright owner, its agent, or the law.</li>
+      <li>A statement that the information in your notice is accurate, and that (under penalty of perjury, where applicable in your jurisdiction) you are the copyright owner or authorised to act on their behalf.</li>
+      <li>Your physical or electronic signature.</li>
+    </ul>
+    <p>We will review valid complaints promptly and may remove infringing content and, in cases of repeat infringement, terminate the relevant accounts. Knowingly submitting a false copyright complaint may result in liability under applicable law.</p>
+
+    <h2 id="paid"><span class="num">10.</span> Paid Features and Subscriptions</h2>
+    <p>The App is currently free to use. We may introduce paid features or subscriptions in the future. If we do:</p>
+    <ul>
+      <li>Pricing and terms will be clearly disclosed before purchase.</li>
+      <li>All payments will be processed through Apple's App Store under Apple's terms.</li>
+      <li>Subscriptions auto-renew unless cancelled in your Apple ID settings at least 24 hours before the end of the current period.</li>
+      <li>Refund requests are handled by Apple in accordance with their policies.</li>
+      <li>Features available without payment at the time you started using the App will not retroactively be removed for you without notice and a reasonable transition period.</li>
+    </ul>
+
+    <h2 id="availability"><span class="num">11.</span> Service Availability and Changes</h2>
+    <p>We aim to keep the App available and working, but we do not guarantee uninterrupted, error-free, or secure operation. The App may be unavailable due to maintenance, updates, technical issues, or factors outside our control.</p>
+    <p>We may modify, suspend, or discontinue the App or any feature at any time. Where reasonably possible, we will give you advance notice of significant changes that materially affect your use of the App.</p>
+    <p>We may also update these Terms from time to time. Material changes will be communicated by in-app notice, push notification, or email (where available) at least 14 days before they take effect. Continued use of the App after changes take effect constitutes acceptance.</p>
+
+    <h2 id="ip"><span class="num">12.</span> Intellectual Property</h2>
+    <p>The App, its design, code, branding, and all content we provide (excluding Your Content) are owned by us or our licensors and are protected by intellectual property laws. Nothing in these Terms transfers any of those rights to you.</p>
+    <p>If you provide feedback, suggestions, or ideas about the App, you grant us a perpetual, worldwide, royalty-free licence to use them without obligation to you.</p>
+
+    <h2 id="third-party"><span class="num">13.</span> Third-Party Services</h2>
+    <p>The App relies on third-party services including Apple (App Store, iOS), Google (Firebase, Gemini AI), and others. Your use of those services is also governed by their own terms. We are not responsible for the actions, content, or terms of third parties.</p>
+
+    <div class="legalese">
+      <h2 id="disclaimer"><span class="num">14.</span> Disclaimer of Warranties</h2>
+      <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, TO THE FULLEST EXTENT PERMITTED BY LAW.</p>
+      <p>We expressly disclaim all warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, accuracy, reliability, and non-infringement. We do not warrant that:</p>
+      <ul>
+        <li>The App will meet your requirements.</li>
+        <li>The App will be uninterrupted, secure, or error-free.</li>
+        <li>Any defects will be corrected.</li>
+        <li>Data displayed, stored, or extracted by the App will be accurate or complete.</li>
+        <li>The AI scanning feature will produce correct results.</li>
+      </ul>
+      <p>Some jurisdictions do not allow the exclusion of certain warranties. To the extent such exclusions are not permitted, the disclaimers above apply to the maximum extent permitted by applicable law.</p>
+
+      <h2 id="liability"><span class="num">15.</span> Limitation of Liability</h2>
+      <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</p>
+      <p>We will not be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages, or for any loss of profits, revenue, data, goodwill, or other intangible losses, arising out of or related to your use of (or inability to use) the App — even if we have been advised of the possibility of such damages.</p>
+      <p>We will not be liable for:</p>
+      <ul>
+        <li>Any decision you make based on data in or extracted by the App, including AI-extracted data.</li>
+        <li>Any injury, illness, or death arising from scuba diving, regardless of whether the App was used in connection with the dive.</li>
+        <li>Loss of, or unauthorised access to, Your Content, except to the extent caused by our gross negligence.</li>
+        <li>Acts or omissions of third parties, including dive operators, dive buddies, and service providers like Apple and Google.</li>
+      </ul>
+      <p>Our total aggregate liability arising out of or related to these Terms or the App, for any cause whatsoever, will not exceed the greater of (a) the amount you have paid us in fees in the 12 months preceding the claim, or (b) £100.</p>
+      <div class="consumer-note">
+        <p><strong>Important note for UK and EU consumers:</strong> Nothing in these Terms limits or excludes our liability for death or personal injury caused by our negligence, fraud, fraudulent misrepresentation, or any other liability that cannot be limited or excluded under applicable law. Your statutory rights as a consumer are not affected.</p>
+      </div>
+    </div>
+
+    <h2 id="indemnification"><span class="num">16.</span> Indemnification</h2>
+    <p>You agree to indemnify and hold us harmless from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising from:</p>
+    <ul>
+      <li>Your violation of these Terms.</li>
+      <li>Your violation of any law or third-party right.</li>
+      <li>Your Content.</li>
+      <li>Your use of the App in connection with any dive or diving activity.</li>
+    </ul>
+    <p>This obligation does not apply to the extent any claim arises from our gross negligence or wilful misconduct, or where prohibited by applicable law.</p>
+    <div class="consumer-note">
+      <p><strong>Important note for UK and EU consumers:</strong> If you use the App as a consumer, this indemnity applies only to the extent permitted by applicable consumer protection law in your country of residence. Nothing in this section is intended to override your statutory rights.</p>
+    </div>
+
+    <h2 id="termination"><span class="num">17.</span> Termination</h2>
+    <p>You may stop using the App and delete your account at any time.</p>
+    <p>We may suspend or terminate your access to the App, with or without notice, if:</p>
+    <ul>
+      <li>You violate these Terms.</li>
+      <li>We are required to do so by law.</li>
+      <li>We discontinue the App.</li>
+      <li>Your account has been inactive for at least 24 months. Where possible, we will give you at least 30 days' email notice before deleting an inactive account.</li>
+    </ul>
+    <p>Sections that by their nature should survive termination (including ownership, disclaimers, limitation of liability, indemnification, and dispute resolution) will survive.</p>
+
+    <h2 id="apple"><span class="num">18.</span> Apple App Store Terms</h2>
+    <p>You acknowledge that these Terms are between you and us, not Apple, and that Apple is not responsible for the App or its content. Apple has no obligation to provide support or maintenance for the App. In the event of any failure of the App to conform to any applicable warranty, you may notify Apple, who will refund the purchase price (if any). To the maximum extent permitted by law, Apple has no other warranty obligation.</p>
+    <p>Apple is not responsible for addressing claims by you or any third party related to the App, including product liability, legal or regulatory compliance, or consumer protection claims. Apple and Apple's subsidiaries are third-party beneficiaries of these Terms and have the right to enforce them against you.</p>
+    <p><strong>Export compliance.</strong> You represent and warrant that: (a) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting" country; and (b) you are not listed on any U.S. Government list of prohibited or restricted parties. You may not use or export the App in violation of any U.S. or other applicable export laws or regulations.</p>
+
+    <h2 id="law"><span class="num">19.</span> Governing Law and Disputes</h2>
+    <p>These Terms are governed by the laws of England and Wales, without regard to conflict of law principles.</p>
+    <p><strong>Consumers in the UK and EU:</strong> if you use the App as a consumer, you have the benefit of any mandatory provisions of consumer protection law in your country of residence, and you may bring proceedings in your local courts. Nothing in this section limits those rights.</p>
+    <p><strong>All other users:</strong> any dispute arising out of or relating to these Terms or the App will be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+    <p>You may also be entitled to use online dispute resolution platforms, such as the EU Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+
+    <h2 id="general"><span class="num">20.</span> General</h2>
+    <ul>
+      <li><strong>Entire agreement.</strong> These Terms and our Privacy Policy form the entire agreement between you and us regarding the App.</li>
+      <li><strong>Severability.</strong> If any provision is found unenforceable, the remainder remains in effect.</li>
+      <li><strong>No waiver.</strong> Our failure to enforce any provision is not a waiver of that provision.</li>
+      <li><strong>Assignment.</strong> You may not assign these Terms without our written consent. We may assign them in connection with a merger, acquisition, or sale of assets.</li>
+      <li><strong>Force majeure.</strong> We are not liable for delays or failures caused by events beyond our reasonable control.</li>
+      <li><strong>Notices.</strong> We may send notices by in-app message, push notification, or email where available. You may contact us at the email address in Section 21.</li>
+    </ul>
+
+    <h2 id="contact"><span class="num">21.</span> Contact</h2>
+    <p>Rafferty Clarke Mathews<br/>
+    Email: <a href="mailto:hello@divrhq.com">hello@divrhq.com</a></p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand">DIVR</div>
+      <p class="footer-tagline">Where divers connect.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="community.html">Community Guidelines</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DIVR. All rights reserved.</span>
+    <span>Made for divers, everywhere 🌊</span>
+  </div>
+</footer>
+
+</body>
+</html>

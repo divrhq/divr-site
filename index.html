@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DIVR — Where divers connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #00b4ff;
+    --blue-bright: #1ec8ff;
+    --blue-deep: #0095d9;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #141414;
+    --dark-soft: #1c1c1c;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-soft: #b3b3b3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 1.5rem; letter-spacing: -0.02em; color: var(--white);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--grey-soft); text-decoration: none;
+    font-weight: 500; font-size: 0.95rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue); color: var(--black);
+    padding: 0.6rem 1.2rem; border-radius: 999px;
+    font-size: 0.9rem; font-weight: 600;
+    transition: transform 0.2s, background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--blue-bright); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 8rem 2rem 4rem; position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top, rgba(0, 180, 255, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(0, 180, 255, 0.08) 0%, transparent 60%),
+      var(--black);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  }
+  .hero-eyebrow {
+    font-weight: 600; font-size: 0.85rem;
+    color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 1.5rem; opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.2s forwards;
+    position: relative; z-index: 2;
+  }
+
+  /* === DIVR LETTERS ===
+     For deployment with videos: the .video-grid layer will hold 4 videos, and
+     the .letters-cutout SVG punches letter-shaped holes in a black overlay to
+     reveal the video underneath. In this preview (and as a fallback for
+     anyone whose videos haven't loaded), the .hero-letters-fallback shows the
+     letters in a blue gradient. */
+
+  /* === DIVR LETTERS — video filled via SVG clipPath ===
+     Each letter is rendered as an SVG <text> element, used as a clipPath.
+     The four <foreignObject> elements containing <video> are clipped to
+     their respective letter shape. The page background shows through
+     everywhere else. */
+
+  .hero-letters {
+    position: relative; z-index: 2;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    opacity: 0; animation: fadeUp 1s ease-out 0.4s forwards;
+    filter: drop-shadow(0 0 50px rgba(0, 180, 255, 0.3));
+    line-height: 0;
+  }
+
+  /* By default (desktop) show the wide single-row layout, hide the stacked mobile one. */
+  .hero-letters-mobile { display: none; }
+
+  /* === MOBILE 2x2 LAYOUT ===
+     Each letter is a container holding a <video>, with a CSS mask shaped
+     like the letter applied to BOTH the video and a gradient fallback. */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    aspect-ratio: 1 / 1.1;
+  }
+  .mobile-letter {
+    position: relative;
+    overflow: hidden;
+  }
+  /* Gradient fallback drawn via a pseudo-element behind the video. It shares
+     the same mask shape so the gradient appears in the letter outline if the
+     video fails to load. */
+  .mobile-letter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #1ec8ff 0%, #00b4ff 50%, #0095d9 100%);
+    z-index: 1;
+  }
+  .mobile-letter video {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Apply the letter-shaped mask to BOTH the pseudo gradient and the video,
+     so whichever is present shows up clipped to the letter shape. */
+  .mobile-letter-d::before,
+  .mobile-letter-d video {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>D</text></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>D</text></svg>");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .mobile-letter-i::before,
+  .mobile-letter-i video {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>I</text></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>I</text></svg>");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .mobile-letter-v::before,
+  .mobile-letter-v video {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>V</text></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>V</text></svg>");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .mobile-letter-r::before,
+  .mobile-letter-r video {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>R</text></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>R</text></svg>");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+
+  .hero-letters svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Each video fills its assigned letter via clip-path */
+  .hero-letters foreignObject video,
+  .hero-letters video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Fallback styling — if video fails to load, the gradient text shows */
+  .hero-letters .fallback-text {
+    fill: url(#divr-gradient);
+  }
+
+  .hero-tagline {
+    margin-top: 3rem; font-family: 'Mitr', sans-serif; font-weight: 500;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    max-width: 700px; text-align: center; line-height: 1.3;
+    color: var(--white); opacity: 0;
+    animation: fadeUp 1s ease-out 0.7s forwards;
+    position: relative; z-index: 2;
+  }
+  .hero-tagline em { color: var(--blue); }
+  .hero-sub {
+    margin-top: 1.5rem; font-size: 1.1rem; color: var(--grey-soft);
+    max-width: 540px; text-align: center; opacity: 0;
+    animation: fadeUp 1s ease-out 0.9s forwards;
+    position: relative; z-index: 2;
+  }
+  .hero-cta-group {
+    margin-top: 2.5rem; display: flex; gap: 1rem;
+    flex-wrap: wrap; justify-content: center; opacity: 0;
+    animation: fadeUp 1s ease-out 1.1s forwards;
+    position: relative; z-index: 2;
+  }
+  .btn-primary {
+    background: var(--blue); color: var(--black);
+    padding: 1rem 1.8rem; border-radius: 999px;
+    font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    border: none; cursor: pointer; font-size: 1rem; font-family: inherit;
+    box-shadow: 0 8px 24px -8px rgba(0, 180, 255, 0.4);
+  }
+  .btn-primary:hover {
+    background: var(--blue-bright); transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(0, 180, 255, 0.6);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    padding: 1rem 1.8rem; border-radius: 999px;
+    font-weight: 500; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer; font-size: 1rem; font-family: inherit;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: var(--blue); }
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%); font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey);
+    opacity: 0;
+    animation: fadeUp 1s ease-out 1.4s forwards, bob 2s ease-in-out 2s infinite;
+    z-index: 2;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    font-weight: 600; color: var(--blue); font-size: 0.85rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; color: var(--white);
+  }
+  .section-title em { color: var(--blue); }
+  .section-sub {
+    font-size: 1.15rem; color: var(--grey-soft);
+    max-width: 600px; margin-bottom: 4rem;
+  }
+
+  .features {
+    background: var(--near-black); position: relative;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .feature-grid {
+    display: grid; gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .feature-card {
+    background: var(--dark); border-radius: 20px;
+    padding: 2.5rem 2rem;
+    transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 180, 255, 0.3); background: var(--dark-soft);
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 180, 255, 0.12); color: var(--blue);
+    border: 1px solid rgba(0, 180, 255, 0.25);
+  }
+  .feature-icon svg { width: 26px; height: 26px; }
+  .feature-title {
+    font-family: 'Mitr', sans-serif; font-weight: 600;
+    font-size: 1.3rem; margin-bottom: 0.6rem; color: var(--white);
+  }
+  .feature-desc { color: var(--grey-soft); font-size: 0.98rem; line-height: 1.6; }
+
+  .how { background: var(--black); position: relative; overflow: hidden; }
+  .how::before {
+    content: ''; position: absolute; top: -30%; right: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.15) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .how::after {
+    content: ''; position: absolute; bottom: -30%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.08) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; position: relative; z-index: 2;
+  }
+  .step {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 2.5rem 2rem;
+    transition: transform 0.3s, border-color 0.3s; position: relative;
+  }
+  .step:hover { transform: translateY(-6px); border-color: rgba(0, 180, 255, 0.3); }
+  .step-num {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 3.5rem; color: var(--blue);
+    line-height: 1; margin-bottom: 1rem; letter-spacing: -0.04em;
+  }
+  .step-title {
+    font-family: 'Mitr', sans-serif; font-weight: 600;
+    font-size: 1.4rem; margin-bottom: 0.6rem; color: var(--white);
+  }
+  .step-desc { color: var(--grey-soft); font-size: 0.98rem; line-height: 1.6; }
+
+  /* ===== AI IMPORT SECTION ===== */
+  .ai-import {
+    background: var(--near-black);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-import::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -10%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .ai-content .section-sub { margin-bottom: 2rem; }
+  .ai-desc {
+    font-size: 1.15rem; color: var(--grey-soft);
+    margin-bottom: 2rem; line-height: 1.6;
+  }
+  .ai-list { list-style: none; padding: 0; }
+  .ai-list li {
+    color: var(--grey-soft);
+    padding: 0.6rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1rem;
+  }
+  .ai-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    background: rgba(0, 180, 255, 0.15);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    color: var(--blue);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Visual: paper logbook → digital card */
+  .ai-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ai-card-stack {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .ai-card {
+    flex: 1;
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .ai-card-paper {
+    background: #f4ead5;
+    color: #4a3a20;
+    transform: rotate(-3deg);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+    position: relative;
+    font-family: 'Caveat', 'Courier New', cursive;
+  }
+  .paper-stamp {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: rgba(74, 58, 32, 0.6);
+    border: 1.5px solid rgba(74, 58, 32, 0.4);
+    padding: 0.3rem 0.6rem;
+    align-self: flex-start;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .paper-line {
+    height: 10px;
+    background: rgba(74, 58, 32, 0.25);
+    border-radius: 2px;
+    width: 100%;
+  }
+  .paper-line.short { width: 60%; }
+  .ai-arrow {
+    flex: 0 0 auto;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue);
+    background: rgba(0, 180, 255, 0.15);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    border-radius: 50%;
+  }
+  .ai-arrow svg { width: 20px; height: 20px; }
+  .ai-card-digital {
+    background: var(--dark);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    transform: rotate(3deg);
+    box-shadow: 0 20px 40px -20px rgba(0, 180, 255, 0.4);
+    justify-content: center;
+  }
+  .digital-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-family: 'Inter', sans-serif;
+  }
+  .digital-row:last-child { border-bottom: none; }
+  .digital-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+  }
+  .digital-value {
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .ai-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .ai-card-stack { gap: 0.75rem; }
+    .ai-card { padding: 1rem; min-height: 180px; }
+  }
+
+  .download {
+    background: var(--near-black); text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .download-card {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--near-black) 100%);
+    border-radius: 28px; padding: 5rem 3rem;
+    max-width: 800px; margin: 0 auto;
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    position: relative; overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0, 180, 255, 0.3);
+  }
+  .download-card::before {
+    content: ''; position: absolute; top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.12) 0%, transparent 60%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .download-content { position: relative; z-index: 2; }
+  .coming-soon-badge {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--white); color: var(--black);
+    padding: 0.8rem 1.5rem; border-radius: 999px;
+    margin-bottom: 2rem; text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .coming-soon-badge:hover { transform: translateY(-2px); }
+  .coming-soon-badge .badge-label {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.1em; opacity: 0.65; display: block; line-height: 1;
+  }
+  .coming-soon-badge .badge-store {
+    font-size: 1rem; font-weight: 600; line-height: 1.2;
+  }
+  .signup-form {
+    margin-top: 2rem; display: flex; gap: 0.5rem;
+    max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+  .signup-form input {
+    flex: 1; padding: 0.9rem 1.2rem; border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    font-size: 1rem; font-family: inherit;
+    background: rgba(255,255,255,0.05); color: var(--white);
+    outline: none; transition: border-color 0.2s, background 0.2s;
+  }
+  .signup-form input::placeholder { color: var(--grey); }
+  .signup-form input:focus { border-color: var(--blue); background: rgba(0, 180, 255, 0.08); }
+  .signup-form button {
+    padding: 0.9rem 1.5rem; border-radius: 999px;
+    background: var(--blue); color: var(--black);
+    border: none; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: background 0.2s, transform 0.2s;
+  }
+  .signup-form button:hover { background: var(--blue-bright); transform: translateY(-1px); }
+  .signup-note { font-size: 0.85rem; color: var(--grey); margin-top: 1rem; }
+
+  footer {
+    background: var(--black); color: var(--grey-soft);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-content {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+    padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 2rem; color: var(--white); letter-spacing: -0.02em;
+  }
+  .footer-tagline {
+    font-family: 'Mitr', sans-serif;
+    margin-top: 0.5rem; color: var(--blue);
+  }
+  .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: var(--grey-soft);
+    text-decoration: none; margin-bottom: 0.6rem;
+    font-size: 0.95rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--blue); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.85rem; color: var(--grey);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .steps { grid-template-columns: 1fr; }
+    .download-card { padding: 3rem 1.5rem; }
+    .signup-form { flex-direction: column; }
+    .footer-content { flex-direction: column; }
+
+    /* On mobile: hide the wide single-row hero and show the stacked 2x2 version.
+       The mobile SVG uses a square-ish viewBox so iOS Safari handles the
+       foreignObject + video clipping reliably. */
+    .hero-letters-desktop { display: none; }
+    .hero-letters-mobile { display: block; }
+    .hero { padding-top: 7rem; padding-bottom: 3rem; }
+    .hero-letters-mobile {
+      width: 100%;
+      margin-left: 0;
+      padding: 0 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">DIVR</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a href="#download" class="nav-cta">Get early access</a>
+</nav>
+
+<section class="hero">
+  <span class="hero-eyebrow">For divers, by divers</span>
+
+  <div class="hero-letters hero-letters-desktop">
+    <svg viewBox="0 0 1400 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="DIVR">
+      <defs>
+        <!-- Gradient used as fallback if videos don't load -->
+        <linearGradient id="divr-gradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1ec8ff"/>
+          <stop offset="50%" stop-color="#00b4ff"/>
+          <stop offset="100%" stop-color="#0095d9"/>
+        </linearGradient>
+
+        <!-- One clipPath per letter. The text inside defines the visible shape. -->
+        <clipPath id="clip-D"><text x="200" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" transform="scale(1 1.15)" style="transform-origin: 200px 0;">D</text></clipPath>
+        <clipPath id="clip-I"><text x="555" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" transform="scale(1 1.15)" style="transform-origin: 555px 0;">I</text></clipPath>
+        <clipPath id="clip-V"><text x="855" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" transform="scale(1 1.15)" style="transform-origin: 855px 0;">V</text></clipPath>
+        <clipPath id="clip-R"><text x="1245" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" transform="scale(1 1.15)" style="transform-origin: 1245px 0;">R</text></clipPath>
+      </defs>
+
+      <!-- Gradient fallback letters (visible if videos haven't loaded yet) -->
+      <g class="fallback-text">
+        <text x="200" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" fill="url(#divr-gradient)" transform="scale(1 1.15)" style="transform-origin: 200px 0;">D</text>
+        <text x="555" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" fill="url(#divr-gradient)" transform="scale(1 1.15)" style="transform-origin: 555px 0;">I</text>
+        <text x="855" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" fill="url(#divr-gradient)" transform="scale(1 1.15)" style="transform-origin: 855px 0;">V</text>
+        <text x="1245" y="385" font-family="Mitr, sans-serif" font-weight="700" font-size="500" text-anchor="middle" fill="url(#divr-gradient)" transform="scale(1 1.15)" style="transform-origin: 1245px 0;">R</text>
+      </g>
+
+      <!-- Videos clipped to letter shapes — each occupies the full SVG canvas
+           but is only visible inside its assigned letter's clip-path -->
+      <foreignObject x="0" y="0" width="1400" height="460" clip-path="url(#clip-D)">
+        <video xmlns="http://www.w3.org/1999/xhtml" autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-d.mp4" type="video/mp4">
+        </video>
+      </foreignObject>
+      <foreignObject x="0" y="0" width="1400" height="460" clip-path="url(#clip-I)">
+        <video xmlns="http://www.w3.org/1999/xhtml" autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-i.mp4" type="video/mp4">
+        </video>
+      </foreignObject>
+      <foreignObject x="0" y="0" width="1400" height="460" clip-path="url(#clip-V)">
+        <video xmlns="http://www.w3.org/1999/xhtml" autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-v.mp4" type="video/mp4">
+        </video>
+      </foreignObject>
+      <foreignObject x="0" y="0" width="1400" height="460" clip-path="url(#clip-R)">
+        <video xmlns="http://www.w3.org/1999/xhtml" autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-r.mp4" type="video/mp4">
+        </video>
+      </foreignObject>
+    </svg>
+  </div>
+
+  <!-- Mobile-only: 2x2 stacked layout (DI on top row, VR on bottom row).
+       Uses CSS masks instead of SVG clip-paths because iOS Safari does not
+       reliably clip <video> elements inside SVG foreignObject. -->
+  <div class="hero-letters hero-letters-mobile">
+    <div class="mobile-grid">
+      <div class="mobile-letter mobile-letter-d">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-d.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="mobile-letter mobile-letter-i">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-i.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="mobile-letter mobile-letter-v">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-v.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="mobile-letter mobile-letter-r">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="videos/letter-r.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <p class="hero-tagline">Where divers <em>connect.</em></p>
+  <p class="hero-sub">DIVR is the social home for scuba, free, and snorkel divers. Log every dive digitally — photos, stats, location — and it becomes a post your followers can experience with you.</p>
+
+  <div class="hero-cta-group">
+    <a href="#download" class="btn-primary">
+      Join the waitlist
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#how" class="btn-secondary">See how it works</a>
+  </div>
+
+  <div class="scroll-hint">↓ dive in</div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <span class="section-eyebrow">What you get</span>
+    <h2 class="section-title">A feed built for <em>divers.</em></h2>
+    <p class="section-sub">Forget endless scrolling through strangers. DIVR is a feed of real dives, real people, and the underwater world we all love.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a4 4 0 00-3-3.85"/></svg></div>
+        <h3 class="feature-title">Your dive buddies, closer</h3>
+        <p class="feature-desc">Follow the people you dive with, the ones you used to dive with, and the ones you've always wanted to. See where they've been, where they're going next.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3 class="feature-title">Discover new sites</h3>
+        <p class="feature-desc">Find your next dive through the people who've already been there. Real photos, real conditions, from divers you trust.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+        <h3 class="feature-title">Posts with substance</h3>
+        <p class="feature-desc">Every dive comes with the data — depth, time, temperature, visibility. Not just pretty pictures, but the full story of what it took.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3 class="feature-title">A profile worth scrolling</h3>
+        <p class="feature-desc">Your dives, your places, your milestones — all in one home. Bring your old paper logbook with you and your whole story comes too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="container">
+    <span class="section-eyebrow">How it works</span>
+    <h2 class="section-title">One dive, <em>one post.</em></h2>
+    <p class="section-sub">On DIVR, logging your dive is how you share it. No separate "compose post" — just log it once, and the whole story goes with you.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Fill in the dive</h3>
+        <p class="step-desc">Depth, bottom time, temperature, visibility, gas, gear — log the numbers a diver actually cares about. Add a few photos and pin the site.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Set who sees it</h3>
+        <p class="step-desc">Public for the wider community, just your followers, or private to your profile. The same log entry, however you want to share it.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Hit post</h3>
+        <p class="step-desc">Your dive lands in feeds instantly — stats and all. No double-entering data, no juggling apps. The log is the post, and the post is the log.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ai-import" id="import">
+  <div class="container">
+    <div class="ai-grid">
+      <div class="ai-content">
+        <span class="section-eyebrow">Bring your history</span>
+        <h2 class="section-title">Every dive you've <em>ever done.</em></h2>
+        <p class="ai-desc">Years of dives sitting in a paper logbook? Snap a photo of each page and our AI reads it for you — site names, depths, dates, bottom times, the lot. Every old dive lands in your profile, ready to share.</p>
+        <ul class="ai-list">
+          <li><span class="ai-check">✓</span> Works with most standard logbook layouts</li>
+          <li><span class="ai-check">✓</span> Edit anything before it goes live</li>
+          <li><span class="ai-check">✓</span> Bulk import a whole logbook in minutes</li>
+        </ul>
+      </div>
+      <div class="ai-visual">
+        <div class="ai-card-stack">
+          <div class="ai-card ai-card-paper">
+            <div class="paper-stamp">DIVE LOG</div>
+            <div class="paper-line"></div>
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+          </div>
+          <div class="ai-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ai-card ai-card-digital">
+            <div class="digital-row"><span class="digital-label">Site</span><span class="digital-value">Blue Hole</span></div>
+            <div class="digital-row"><span class="digital-label">Depth</span><span class="digital-value">28m</span></div>
+            <div class="digital-row"><span class="digital-label">Time</span><span class="digital-value">42 min</span></div>
+            <div class="digital-row"><span class="digital-label">Temp</span><span class="digital-value">26°C</span></div>
+            <div class="digital-row"><span class="digital-label">Vis</span><span class="digital-value">20m</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="download" id="download">
+  <div class="container">
+    <div class="download-card">
+      <div class="download-content">
+        <span class="section-eyebrow">Coming soon</span>
+        <h2 class="section-title">Join the <em>community.</em></h2>
+        <p class="section-sub" style="margin: 0 auto 2rem; text-align: center;">DIVR is launching on iOS soon. Sign up and we'll let you know the moment you can join.</p>
+
+        <a class="coming-soon-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <span>
+            <span class="badge-label">Coming soon to</span>
+            <span class="badge-store">App Store</span>
+          </span>
+        </a>
+
+        <form class="signup-form" name="waitlist" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="waitlist" />
+          <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+          <input type="email" name="email" placeholder="your@email.com" required />
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="signup-note">No spam. Just one email when we launch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand">DIVR</div>
+      <p class="footer-tagline">Where divers connect.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="community.html">Community Guidelines</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DIVR. All rights reserved.</span>
+    <span>Made for divers, everywhere 🌊</span>
+  </div>
+</footer>
+
+<script>
+  // Force play (some browsers block autoplay until user interaction)
+  document.querySelectorAll('.video-grid video').forEach(video => {
+    video.play().catch(() => {});
+  });
+</script>
+
+<!-- Hidden static form for Netlify Forms detection (only needed for drag-and-drop deploys) -->
+<form name="waitlist" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email" />
+  <input name="bot-field" />
+</form>
+
+</body>
+</html>

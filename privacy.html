@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — DIVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #00b4ff;
+    --blue-bright: #1ec8ff;
+    --blue-deep: #0095d9;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #141414;
+    --dark-soft: #1c1c1c;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-soft: #b3b3b3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 1.5rem; letter-spacing: -0.02em; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-back {
+    color: var(--grey-soft); text-decoration: none;
+    font-weight: 500; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  /* HEADER */
+  .page-header {
+    padding: 10rem 2rem 4rem;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at top, rgba(0, 180, 255, 0.18) 0%, transparent 60%),
+      var(--black);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .page-eyebrow {
+    font-weight: 600; color: var(--blue);
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .page-title {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .page-meta {
+    color: var(--grey); font-size: 0.95rem;
+  }
+
+  /* LAYOUT */
+  .page-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 7rem;
+  }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+  }
+  .toc-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--grey);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .toc ul { list-style: none; }
+  .toc a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--grey-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-left: 2px solid transparent;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc a:hover { color: var(--white); border-color: rgba(0, 180, 255, 0.4); }
+
+  /* CONTENT */
+  .content {
+    max-width: 720px;
+  }
+  .content h2 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    scroll-margin-top: 6rem;
+  }
+  .content h2:first-child { margin-top: 0; }
+  .content h2 .num {
+    color: var(--blue);
+    margin-right: 0.4rem;
+    font-weight: 600;
+  }
+  .content h3 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .content p {
+    color: var(--grey-soft);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .content ul, .content ol {
+    color: var(--grey-soft);
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .content li { margin-bottom: 0.5rem; }
+  .content a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    transition: border-color 0.2s;
+  }
+  .content a:hover { border-color: var(--blue); }
+  .content strong { color: var(--white); font-weight: 600; }
+
+  /* At-a-glance summary card */
+  .at-a-glance {
+    background: linear-gradient(135deg, rgba(0, 180, 255, 0.08), rgba(0, 180, 255, 0.02));
+    border: 1px solid rgba(0, 180, 255, 0.25);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .at-a-glance-title {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--blue);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .at-a-glance ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--grey-soft);
+  }
+  .at-a-glance li {
+    padding: 0.5rem 0 0.5rem 1.75rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .at-a-glance li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .at-a-glance strong { color: var(--white); }
+
+  /* Legal basis tags for GDPR purposes */
+  .purpose-block {
+    background: var(--dark);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .purpose-block h4 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .purpose-block p {
+    margin-bottom: 0.75rem !important;
+    font-size: 0.95rem !important;
+  }
+  .purpose-block p:last-child { margin-bottom: 0 !important; }
+  .legal-basis {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-right: 0.5rem;
+    border: 1px solid;
+  }
+  .legal-basis.contract { color: var(--blue); border-color: rgba(0, 180, 255, 0.4); background: rgba(0, 180, 255, 0.08); }
+  .legal-basis.legitimate { color: #a78bfa; border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.08); }
+  .legal-basis.consent { color: #4ade80; border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.08); }
+  .legal-basis.legal { color: #ffb547; border-color: rgba(255, 181, 71, 0.4); background: rgba(255, 181, 71, 0.08); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: var(--grey-soft);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-content {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 2rem; color: var(--white); letter-spacing: -0.02em;
+  }
+  .footer-tagline {
+    font-family: 'Mitr', sans-serif;
+    margin-top: 0.5rem; color: var(--blue);
+  }
+  .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: var(--grey-soft);
+    text-decoration: none; margin-bottom: 0.6rem;
+    font-size: 0.95rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--blue); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.85rem; color: var(--grey);
+  }
+
+  @media (max-width: 900px) {
+    .page-body { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; }
+    .toc { position: static; max-height: none; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-header { padding: 8rem 1.5rem 3rem; }
+    .footer-content { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">DIVR</a>
+  <a href="/" class="nav-back">← Back to DIVR</a>
+</nav>
+
+<header class="page-header">
+  <div class="page-eyebrow">Legal</div>
+  <h1 class="page-title">Privacy Policy</h1>
+  <p class="page-meta">Last updated: 11 May 2026</p>
+</header>
+
+<div class="page-body">
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <ul>
+      <li><a href="#intro">1. Introduction</a></li>
+      <li><a href="#info-collect">2. Information we collect</a></li>
+      <li><a href="#info-use">3. How we use your information</a></li>
+      <li><a href="#info-share">4. How we share information</a></li>
+      <li><a href="#storage">5. Data storage & security</a></li>
+      <li><a href="#rights">6. Your rights</a></li>
+      <li><a href="#children">7. Children's privacy</a></li>
+      <li><a href="#international">8. International users and data transfers</a></li>
+      <li><a href="#changes">9. Changes to this policy</a></li>
+      <li><a href="#contact">10. Contact us</a></li>
+    </ul>
+  </aside>
+
+  <article class="content">
+    <div class="at-a-glance">
+      <div class="at-a-glance-title">At a glance</div>
+      <ul>
+        <li>We're a UK-based indie developer building DIVR — not a big tech company.</li>
+        <li>We collect what we need to run the App: your account info, your dives, your photos, and basic usage data.</li>
+        <li><strong>We don't sell your data.</strong> We don't show ads.</li>
+        <li>You control who sees your dives through privacy settings, and you can delete your account anytime.</li>
+        <li>Some data is processed by Google (Firebase) and Apple to make the App work.</li>
+      </ul>
+    </div>
+
+    <h2 id="intro"><span class="num">1.</span> Introduction</h2>
+    <p>This Privacy Policy explains how Rafferty Clarke Mathews ("we," "us," or "our") collects, uses, and protects your personal information when you use DIVR (the "App") and our related website at <a href="https://divrhq.com">divrhq.com</a> (together, the "Services").</p>
+    <p>DIVR is a social platform for scuba, free, and snorkel divers. The App lets you log your dives digitally, share them with followers, discover dive sites, and connect with other divers. To do this, we need to handle some personal information — including the content you post, the location of your dives, and the photos you share.</p>
+    <p>We've written this policy in plain English wherever we can. If you have questions, get in touch at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</p>
+
+    <h3>Who's responsible for your data</h3>
+    <p>For UK and EU users, the "data controller" responsible for your personal information is <strong>Rafferty Clarke Mathews</strong>, based in the United Kingdom. You can reach the data controller at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</p>
+
+    <h3>What this policy covers</h3>
+    <p>This policy applies to the DIVR iOS app and the divrhq.com website. It does not cover third-party services that the App connects to (like Apple Sign In, Google Sign In, or external map providers), which are governed by their own privacy policies. Where we name a third-party service in this policy, we'll link to their policy so you can read it directly.</p>
+
+    <h3>When this policy applies</h3>
+    <p>This policy applies from the moment you visit divrhq.com, sign up for the waitlist, download the App, create an account, or otherwise interact with our Services.</p>
+
+    <h2 id="info-collect"><span class="num">2.</span> Information we collect</h2>
+    <p>We collect information in three ways: information you give us directly, information we collect automatically when you use the Services, and information we receive from third parties.</p>
+
+    <h3>Information you give us directly</h3>
+    <p><strong>Account information.</strong> When you create an account we collect your username, email address, and password (if you sign up with email). You can also add an optional display name, bio, and profile photo.</p>
+    <p><strong>Your dive content.</strong> Every dive you log includes the data you enter — dive site name, date and time, depth, bottom time, water temperature, visibility, gear used, gas mix, notes, and any photos or videos you upload. You can also tag other DIVR users as dive buddies on a dive. You can only tag people who already have a DIVR account.</p>
+    <p><strong>Photos and videos.</strong> When you upload a photo or video, we automatically strip the embedded metadata (EXIF data) such as GPS coordinates, camera model, and capture time before storing it. The photo itself is stored as you uploaded it; the hidden technical metadata is removed to protect your privacy.</p>
+    <p><strong>Location data.</strong> When you pin a dive site, you provide its location (either by choosing a known site or by entering coordinates). You control the precision of locations you share through your privacy settings.</p>
+    <p><strong>Logbook scan images.</strong> If you use the AI logbook scanning feature, you provide a photograph of a logbook page. As described in Section 6, we do not retain these images — they are processed by the AI service to extract dive data and then discarded.</p>
+    <p><strong>Social activity.</strong> Comments you post, likes, follows, dive buddy tags, and similar interactions on the Services.</p>
+    <p><strong>Communications with us.</strong> If you contact us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>, sign up to the waitlist on divrhq.com, or send a support request, we collect what you tell us, including your email address and the content of your message.</p>
+
+    <h3>Information we collect automatically</h3>
+    <p><strong>Device and technical information.</strong> When you use the App, we automatically collect your device model, iOS version, app version, device language, and time zone. This helps us make the App work on your device and troubleshoot problems.</p>
+    <p><strong>Usage data.</strong> Through Firebase Analytics, we collect information about how you use the App — which screens you visit, which features you use, how often, and for how long. This data is aggregated and used to understand what's working in the App and what needs improving.</p>
+    <p><strong>Crash and diagnostic data.</strong> Through Firebase Crashlytics, we collect technical information when the App crashes — including the device state, what the App was doing, and a "stack trace" of the crash. This helps us fix bugs.</p>
+    <p><strong>IP address and approximate location.</strong> Our infrastructure receives your IP address when you connect to our Services. We use this for security (e.g. to spot suspicious logins) and to route requests through Firebase's regional servers. From your IP we can infer your approximate location (country or region level), but we do not use this to determine your precise location.</p>
+    <p><strong>Date and time of access.</strong> We log when you access the Services, which helps with security investigations and account recovery.</p>
+
+    <h3>Information we receive from third parties</h3>
+    <p><strong>Sign-in providers.</strong> If you sign up using Apple Sign In or Google Sign In, those services share certain information with us:</p>
+    <ul>
+      <li><strong>Apple Sign In</strong> shares your name and email (or, if you choose "Hide My Email", a private relay email address that forwards to your real one).</li>
+      <li><strong>Google Sign In</strong> shares your name, email, and profile photo.</li>
+    </ul>
+    <p>We don't receive your Apple ID or Google password, and we don't get ongoing access to your Apple or Google account beyond what's needed to verify it's you.</p>
+    <p><strong>Firebase Authentication.</strong> Firebase issues us an authentication token and a unique user ID when you sign in, which we use to identify your account on the back-end.</p>
+
+    <h3>Cookies and similar technologies on divrhq.com</h3>
+    <p>Our website uses a small number of cookies and similar technologies:</p>
+    <ul>
+      <li><strong>Strictly necessary cookies</strong> set by our hosting provider Netlify, which keep the site running and let you submit the waitlist form. These can't be turned off.</li>
+      <li><strong>Form submission data.</strong> When you sign up to the waitlist, your email is sent through Netlify Forms and stored in our Netlify dashboard so we can email you when DIVR launches.</li>
+    </ul>
+    <p>The website does not currently use third-party analytics, advertising, or tracking cookies. If we add any in the future, we will update this policy and ask for your consent where required.</p>
+
+    <h3>What we don't collect</h3>
+    <p>We don't collect health data, biometric identifiers, precise real-time location tracking, or data about your activity off DIVR. We don't integrate with Apple Health.</p>
+
+    <h2 id="info-use"><span class="num">3.</span> How we use your information</h2>
+    <p>We use your information only for the purposes set out below. For each purpose, we've identified the "legal basis" under UK and EU data protection law (UK GDPR / EU GDPR) that gives us the right to process your data that way.</p>
+
+    <div class="purpose-block">
+      <h4>To run the App and provide your account</h4>
+      <p><span class="legal-basis contract">Contract</span></p>
+      <p>To create and maintain your account, save your dive logs, store your photos, show you your feed, let you follow other divers and tag dive buddies, and generally provide the features you signed up for.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To process logbook scans with AI</h4>
+      <p><span class="legal-basis contract">Contract</span></p>
+      <p>When you use the AI logbook scanning feature, we send your photo to Google Gemini (via Firebase AI Logic) to extract dive data, then discard the photo. We don't use scan images to train AI models. See Section 6 of the <a href="terms.html#ai">Terms of Service</a> for more.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To send you essential service emails</h4>
+      <p><span class="legal-basis contract">Contract</span></p>
+      <p>Password resets, account verification, security alerts (e.g. a sign-in from a new device), changes to these Terms or this policy, and replies to your support questions. These are not marketing — they're emails you'd expect from any service you've signed up for.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To understand and improve the App</h4>
+      <p><span class="legal-basis legitimate">Legitimate interests</span></p>
+      <p>Through Firebase Analytics and Crashlytics, we collect usage and crash data to understand how the App is used, fix bugs, and improve features. We rely on our legitimate interest in running a working, evolving product. You can turn analytics and crash reporting off at any time in <strong>Settings → Privacy</strong> in the App.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To keep the App and our users safe</h4>
+      <p><span class="legal-basis legitimate">Legitimate interests</span></p>
+      <p>To detect and prevent fraud, abuse, spam, and security threats; to enforce our <a href="terms.html">Terms of Service</a> and <a href="community.html">Community Guidelines</a>; and to investigate and respond to reports of content or conduct that breaks our rules.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To send you the waitlist launch email</h4>
+      <p><span class="legal-basis consent">Consent</span></p>
+      <p>If you signed up to the waitlist on divrhq.com, we'll send you one email when DIVR launches on the App Store. You can unsubscribe at any time. You gave us your consent when you submitted the form.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To send you product updates and feature announcements</h4>
+      <p><span class="legal-basis consent">Consent</span></p>
+      <p>From time to time we may email you about new features, dive-related stories, or other DIVR news. We'll only do this if you've opted in, and you can unsubscribe from any of these emails with one tap. Service emails (above) are separate and not affected by your marketing preferences.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>To comply with the law</h4>
+      <p><span class="legal-basis legal">Legal obligation</span></p>
+      <p>To respond to lawful requests from public authorities, comply with tax and accounting requirements, respond to legal claims, and meet other legal obligations we're subject to.</p>
+    </div>
+
+    <h3>What we don't do with your data</h3>
+    <ul>
+      <li><strong>We don't sell your personal data.</strong> Not to advertisers, not to data brokers, not to anyone. This is true now and we have no plans to change it.</li>
+      <li><strong>We don't use your data to train AI models.</strong> Your dive logs, photos, and logbook scans are never used to train Google Gemini or any other AI model. Google Gemini, accessed via Firebase AI Logic, processes scan images only to return extracted text to you, and the images are not retained by us or used for training.</li>
+      <li><strong>We don't run third-party ads.</strong> DIVR is ad-free and we don't share your data with advertising networks.</li>
+      <li><strong>We don't profile you for targeted advertising.</strong> We don't build advertising profiles based on your dives, locations, or behaviour.</li>
+    </ul>
+
+    <h2 id="info-share"><span class="num">4.</span> How we share information</h2>
+    <p><strong>We do not sell your personal information to anyone.</strong> We share information only in the specific situations described below.</p>
+
+    <h3>With other DIVR users</h3>
+    <p>DIVR is a social platform, so some of your information is shared with other users when you use the App. You control how much, and with whom, through your privacy settings.</p>
+    <ul>
+      <li><strong>Your profile</strong> — your username, profile photo, bio, and follower/following counts are visible to other DIVR users.</li>
+      <li><strong>Your dives</strong> — visibility depends on the setting you choose for each post (public, followers only, or private). Public posts may also be discoverable by people who are not signed in to DIVR.</li>
+      <li><strong>Dive buddy tags</strong> — if you tag someone as a dive buddy, they are notified and can see the dive. If your post is visible to followers or the public, your buddy tags are visible to them too.</li>
+      <li><strong>Comments and likes</strong> — visible to anyone who can see the post they're on.</li>
+    </ul>
+    <p>You can change visibility settings at any time, but content already seen, screenshot, or saved by other users may continue to exist outside the App.</p>
+
+    <h3>With our service providers (sub-processors)</h3>
+    <p>We use a small number of third-party services to run DIVR. These providers process your data on our behalf, under contracts that require them to keep it safe and use it only as we instruct. The main ones are:</p>
+
+    <div class="purpose-block">
+      <h4>Google — Firebase</h4>
+      <p>We use the Firebase platform (operated by Google) for most of the App's back-end, including:</p>
+      <ul>
+        <li><strong>Firebase Authentication</strong> — sign-in and account management</li>
+        <li><strong>Cloud Firestore</strong> — storing your dive logs, profile, and other account data</li>
+        <li><strong>Firebase Storage</strong> — storing your photos and videos</li>
+        <li><strong>Firebase Analytics</strong> — understanding how the App is used</li>
+        <li><strong>Firebase Crashlytics</strong> — diagnosing and fixing crashes</li>
+        <li><strong>Firebase AI Logic (Google Gemini)</strong> — extracting dive data from your logbook scans (the scan image itself is not retained)</li>
+        <li><strong>Firebase Cloud Messaging</strong> — delivering push notifications to your device</li>
+      </ul>
+      <p>Google's handling of this data is governed by the <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy and Security policy</a> and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>Apple</h4>
+      <p>Because DIVR is an iOS app distributed through the App Store, Apple is involved in several ways:</p>
+      <ul>
+        <li><strong>App Store</strong> — Apple processes app downloads and any future in-app purchases.</li>
+        <li><strong>Sign in with Apple</strong> — if you sign in this way, Apple shares your name and email (or a private relay address) with us.</li>
+        <li><strong>MapKit</strong> — when you view or pin a dive site, the App uses Apple Maps (via MapKit) to display map tiles and search for places. Apple may receive map-related requests from your device.</li>
+        <li><strong>Apple's own App Analytics</strong> — Apple collects its own usage analytics at the device level, separate from anything we do, governed by your iOS privacy settings.</li>
+      </ul>
+      <p>Apple's handling of this data is governed by the <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a>.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>Google — Sign In</h4>
+      <p>If you choose to sign in to DIVR with your Google account, Google processes your sign-in request and shares your name, email, and profile photo with us. Google's handling of this is governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>Netlify</h4>
+      <p>Our website divrhq.com is hosted by Netlify, and the waitlist signup form on the site is processed through Netlify Forms. When you submit the form, your email address is stored in our Netlify dashboard until you ask us to delete it or we send the launch email and remove the list. Netlify's handling of this data is governed by the <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify Privacy Policy</a>.</p>
+    </div>
+
+    <div class="purpose-block">
+      <h4>Email delivery</h4>
+      <p>To send essential service emails (password resets, security alerts) and, in the future, the launch announcement and any product update emails you've opted into, we will use a third-party email delivery service. We haven't chosen the provider yet; once we do, we will update this policy and name them here.</p>
+    </div>
+
+    <h3>For legal and safety reasons</h3>
+    <p>We may share information when we believe in good faith that it's necessary to:</p>
+    <ul>
+      <li>Comply with a valid legal request (such as a court order, subpoena, or law enforcement request).</li>
+      <li>Comply with any applicable law, regulation, or legal process.</li>
+      <li>Enforce our <a href="terms.html">Terms of Service</a> or <a href="community.html">Community Guidelines</a>.</li>
+      <li>Detect, prevent, or address fraud, security, or technical issues.</li>
+      <li>Protect the rights, property, or safety of DIVR, our users, or the public — including reporting content involving minors or credible threats of violence to relevant authorities.</li>
+    </ul>
+    <p>Where legally permitted, we'll let you know about a request for your data before responding, so you have a chance to object.</p>
+
+    <h3>In connection with a business transfer</h3>
+    <p>If DIVR is ever involved in a merger, acquisition, sale of assets, or similar business transaction, your information may be transferred to the new owner as part of that transaction. If that happens, we'll let you know in advance, and the new owner will be bound to handle your data in a way that's at least as protective as this policy — or you'll be given the option to delete your account first.</p>
+
+    <h3>Anonymous and aggregated information</h3>
+    <p>We may share information that has been aggregated or fully anonymised — meaning it cannot be linked back to you — for things like community statistics ("most-logged dive sites this year") or research. This is not personal data and isn't subject to the rest of this policy.</p>
+
+    <h2 id="storage"><span class="num">5.</span> Data storage & security</h2>
+
+    <h3>Where your data is stored</h3>
+    <p>Your account data, dive logs, photos, and other content are stored on Google Firebase servers in the <strong>europe-west2 region (London, United Kingdom)</strong>. Our website divrhq.com is hosted by Netlify on their global CDN.</p>
+    <p>Some data is processed in other regions depending on the service — for example, Firebase Crashlytics may process crash diagnostics in the United States, and Apple's services may process data in the regions Apple operates. Where data leaves the UK or EU, it is transferred under safeguards approved by UK and EU data protection law (see Section 8 for more on international transfers).</p>
+
+    <h3>How we keep your data safe</h3>
+    <p>We take security seriously. The main measures we have in place are:</p>
+    <ul>
+      <li><strong>Encryption in transit.</strong> All communication between your device and our servers is encrypted using HTTPS/TLS.</li>
+      <li><strong>Encryption at rest.</strong> Your data is encrypted on disk by Google Firebase using industry-standard encryption.</li>
+      <li><strong>Authentication required for access.</strong> Every request for your data has to be authenticated. You can't see another user's private content, and we can't either, except where strictly necessary for support or moderation.</li>
+      <li><strong>Firestore Security Rules.</strong> Strict rules at the database level control who can read or write each piece of data, so a vulnerability in the App can't be used to access other users' data.</li>
+      <li><strong>Passwords are never stored in plain text.</strong> Firebase Authentication hashes passwords using scrypt before they're stored, and we never see your password ourselves.</li>
+      <li><strong>Short-lived sign-in tokens.</strong> Authentication tokens are time-limited and refreshed regularly, so a stolen token quickly becomes useless.</li>
+      <li><strong>Limited access on our side.</strong> Only the developer (Rafferty Clarke Mathews) has administrative access to the back-end, and access is itself protected by strong authentication.</li>
+    </ul>
+    <p>No service is 100% secure. We do everything we reasonably can to protect your data, but we can't guarantee perfect security. If a data breach ever affects your information, we'll notify you and the relevant authorities (such as the UK ICO) as required by law.</p>
+
+    <h3>How long we keep your data</h3>
+    <p>We keep your data only for as long as we need it. Different categories have different retention periods:</p>
+    <ul>
+      <li><strong>Account information and dive content</strong> — kept while your account is active and for up to 30 days after you delete it, to allow for backup processing and accidental-deletion recovery.</li>
+      <li><strong>Inactive accounts</strong> — accounts inactive for 24 months may be deleted after at least 30 days' email notice (see Section 17 of the <a href="terms.html#termination">Terms of Service</a>).</li>
+      <li><strong>Crash and diagnostic data</strong> — retained for up to 90 days, then deleted automatically.</li>
+      <li><strong>Analytics data</strong> — retained for 14 months by Firebase Analytics, then automatically deleted.</li>
+      <li><strong>Logbook scan images</strong> — not retained. Scans are processed by the AI service and discarded once dive data is extracted.</li>
+      <li><strong>Waitlist email addresses</strong> — kept on the divrhq.com waitlist until we send the launch announcement, then deleted (unless you choose to stay subscribed to product updates).</li>
+      <li><strong>Communications with us</strong> — support emails are kept for as long as needed to resolve your enquiry, plus a reasonable period afterwards in case of follow-up.</li>
+      <li><strong>Records we have to keep by law</strong> — for example, records relevant to tax, accounting, or legal claims may be kept for longer where required by law.</li>
+    </ul>
+
+    <h3>What happens when you delete your account</h3>
+    <p>You can delete your DIVR account at any time from <strong>Settings → Account → Delete Account</strong> in the App.</p>
+    <p>When you delete your account:</p>
+    <ul>
+      <li>Your profile, dive logs, photos, follows, likes, and other personal content are deleted within 30 days.</li>
+      <li>Backups are overwritten within a further 30 days (so within 60 days total, your data is gone from our systems).</li>
+      <li>Comments you've left on other users' dives are deleted from our systems, though copies may still be visible to those users in their own caches, notifications, or screenshots — we can't reach into other people's devices to remove these.</li>
+      <li>Data we're required to keep by law (e.g. for tax, fraud prevention, or to respond to legal claims) is retained for the legally required period.</li>
+      <li>Fully anonymised or aggregated information — which is no longer linked to you — may be retained indefinitely.</li>
+    </ul>
+    <p>Deletion is permanent. If you change your mind within the first 30 days, contact us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> and we may be able to restore your account from backup, but we can't guarantee it.</p>
+
+    <h2 id="rights"><span class="num">6.</span> Your rights</h2>
+    <p>You have meaningful rights over the personal data we hold about you. The exact rights depend on where you live, but most of them apply to everyone using DIVR. We've described them in plain English below.</p>
+
+    <h3>Your rights under UK and EU data protection law</h3>
+    <p>If you live in the UK or EU, you have all of the following rights under UK GDPR and EU GDPR:</p>
+    <ul>
+      <li><strong>Right of access.</strong> You can ask us for a copy of the personal data we hold about you, and information about how we use it.</li>
+      <li><strong>Right to rectification.</strong> If any of your personal data is inaccurate or incomplete, you can ask us to correct it. You can also fix most of your account information yourself in the App.</li>
+      <li><strong>Right to erasure ("right to be forgotten").</strong> You can ask us to delete your personal data. In most cases you can do this yourself by deleting your account in <strong>Settings → Account → Delete Account</strong>.</li>
+      <li><strong>Right to restrict processing.</strong> You can ask us to pause our use of your data while we investigate a concern you've raised — for example, if you think the data is inaccurate.</li>
+      <li><strong>Right to data portability.</strong> You can ask for a copy of your data in a structured, commonly-used, machine-readable format so you can take it to another service.</li>
+      <li><strong>Right to object.</strong> You can object to us processing your data based on our legitimate interests (such as analytics or crash reporting). For analytics and crash reporting, you can switch these off yourself in <strong>Settings → Privacy</strong> in the App.</li>
+      <li><strong>Right to withdraw consent.</strong> Where we rely on your consent (such as for marketing emails), you can withdraw it at any time. Withdrawing consent doesn't affect anything we did with your data before you withdrew.</li>
+      <li><strong>Rights related to automated decision-making.</strong> We don't make decisions about you based purely on automated processing (no automated profiling, scoring, or significant decisions made without a human).</li>
+    </ul>
+
+    <h3>How to exercise your rights</h3>
+    <p>You can exercise most of your rights directly in the App:</p>
+    <ul>
+      <li><strong>Edit your profile and dive content</strong> — in the App, on the relevant screen.</li>
+      <li><strong>Change privacy settings</strong> — <strong>Settings → Privacy</strong>.</li>
+      <li><strong>Turn off analytics or crash reporting</strong> — <strong>Settings → Privacy</strong>.</li>
+      <li><strong>Unsubscribe from marketing emails</strong> — using the unsubscribe link in any marketing email we send.</li>
+      <li><strong>Delete your account</strong> — <strong>Settings → Account → Delete Account</strong>.</li>
+    </ul>
+    <p>For anything you can't do in the App — such as a formal access request, data portability export, or a question about how we use your data — email us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> with a brief description of what you're asking for.</p>
+
+    <h3>What to expect when you make a request</h3>
+    <ul>
+      <li><strong>Response time.</strong> We'll respond within one month. If your request is unusually complex, we may extend this by up to two further months — we'll always tell you if so.</li>
+      <li><strong>Identity verification.</strong> To protect your data, we may need to confirm your identity before responding to a request. We won't ask for more information than necessary.</li>
+      <li><strong>Cost.</strong> Exercising your rights is free. If a request is "manifestly unfounded or excessive" (for example, identical repeat requests) we may charge a reasonable fee or refuse, but we'll explain why.</li>
+      <li><strong>Limits.</strong> Some rights have limits — for example, we can't delete data we're legally required to keep, and we can't act on a request that's clearly fraudulent or that would violate someone else's rights.</li>
+    </ul>
+
+    <h3>Right to lodge a complaint</h3>
+    <p>If you think we've handled your personal data unfairly or in breach of the law, please get in touch first so we can try to put it right. You also have the right to complain to a data protection authority:</p>
+    <ul>
+      <li><strong>In the UK</strong> — the Information Commissioner's Office (ICO), <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a>.</li>
+      <li><strong>In the EU</strong> — the data protection authority of your EU country of residence. A full list is available on the <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" target="_blank" rel="noopener">European Data Protection Board website</a>.</li>
+    </ul>
+
+    <h3>If you live in California</h3>
+    <p>If you're a California resident, you have similar rights under the California Consumer Privacy Act (CCPA / CPRA). The terminology is different but the rights largely mirror those described above:</p>
+    <ul>
+      <li><strong>Right to know</strong> what personal information we collect, use, and share about you.</li>
+      <li><strong>Right to delete</strong> the personal information we hold about you.</li>
+      <li><strong>Right to correct</strong> inaccurate personal information.</li>
+      <li><strong>Right to opt out of "sale" or "sharing"</strong> of personal information. <strong>We do not sell or share your personal information</strong> within the meaning of the CCPA, so there is nothing to opt out of, but we list this right for completeness.</li>
+      <li><strong>Right to limit use of sensitive personal information.</strong> We don't process sensitive personal information beyond what's needed to provide the App to you.</li>
+      <li><strong>Right to non-discrimination.</strong> We won't discriminate against you for exercising any of these rights.</li>
+    </ul>
+    <p>To exercise these rights, email us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>. You may use an authorised agent to make a request on your behalf, in which case we'll need proof of authorisation.</p>
+
+    <h2 id="children"><span class="num">7.</span> Children's privacy</h2>
+    <p>DIVR is not intended for children under 13. In some EU jurisdictions the minimum age is 16, or whatever minimum age is required by your local law, whichever is higher.</p>
+    <p>We do not knowingly collect personal information from anyone below the minimum age. If we discover that we've collected information from someone below the minimum age, we will close the account and delete the associated information.</p>
+    <p>If you're a parent or guardian and you believe your child has created a DIVR account without your consent, please email us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> so we can take action quickly. To manage how a minor in your household uses iOS apps, we recommend using <a href="https://www.apple.com/family-sharing/" target="_blank" rel="noopener">Apple Family Sharing</a> and parental controls, which give you tools to approve downloads, restrict content, and manage screen time.</p>
+    <p>Where required by local law, we will not process the personal information of a minor for marketing purposes or for purposes that go beyond what's needed to provide the App.</p>
+
+    <h2 id="international"><span class="num">8.</span> International users and data transfers</h2>
+    <p>DIVR is operated from the United Kingdom, and we primarily store your data on servers in the UK (see Section 5). But the App relies on services from Google and Apple, which sometimes process data in other countries — most notably the United States. This section explains how that works and what protections are in place.</p>
+
+    <h3>Where your data may be processed</h3>
+    <p>Your personal data may be processed in the following places:</p>
+    <ul>
+      <li><strong>United Kingdom</strong> — primary storage of your account, dive logs, photos, and other content (Firebase europe-west2 region).</li>
+      <li><strong>European Union</strong> — some Firebase services may use EU regions for backups and redundancy.</li>
+      <li><strong>United States</strong> — Firebase Crashlytics processes crash diagnostics on US-based servers. Apple and Google services (including Sign in with Apple, Google Sign In, and Firebase AI Logic / Gemini) may also process data in the US.</li>
+      <li><strong>Other regions</strong> — Apple, Google, and Netlify operate global infrastructure and may process small amounts of data (such as map tile requests or website traffic) in other regions to deliver the Services efficiently.</li>
+    </ul>
+
+    <h3>Safeguards for international transfers</h3>
+    <p>When your personal data is transferred outside the UK or EU, we make sure it's protected by appropriate safeguards under UK GDPR and EU GDPR:</p>
+    <ul>
+      <li><strong>UK International Data Transfer Agreement (IDTA)</strong> and <strong>EU Standard Contractual Clauses (SCCs)</strong> — the contracts we have with Google, Apple, and Netlify include these clauses, which are the approved legal mechanisms for transferring personal data internationally.</li>
+      <li><strong>EU–US Data Privacy Framework</strong> and the <strong>UK Extension</strong> — where applicable, Google and Apple are certified under these frameworks, which provide an additional layer of protection for transfers to the US.</li>
+      <li><strong>Technical safeguards</strong> — all transfers are encrypted in transit, and data at rest is encrypted by our providers using industry-standard encryption.</li>
+    </ul>
+    <p>You can request more information about any of these safeguards by emailing <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</p>
+
+    <h3>If you're using DIVR from outside the UK or EU</h3>
+    <p>DIVR is designed to work for divers anywhere in the world. If you use the App from outside the UK or EU, your data will still be stored primarily on servers in the UK, and processed in line with this Privacy Policy and UK data protection law. By using the App, you understand and agree that your information will be transferred to and processed in the UK and the other regions described above.</p>
+    <p>If your country's law gives you additional rights — for example, under Brazil's LGPD, Australia's Privacy Act, or any state-level US privacy law — those rights still apply, and you can exercise them by contacting us at <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</p>
+
+    <h2 id="changes"><span class="num">9.</span> Changes to this policy</h2>
+    <p>We may update this Privacy Policy from time to time — for example, when we add new features, change how we handle data, or update our list of service providers. When we do, we'll always update the "Last updated" date at the top of this page so you can see when the most recent change was made.</p>
+    <p><strong>For material changes</strong> — meaning changes that significantly affect how we collect, use, or share your personal information — we'll give you advance notice through one or more of the following, where available:</p>
+    <ul>
+      <li>An in-app notice the next time you open DIVR.</li>
+      <li>A push notification.</li>
+      <li>An email to the address linked to your account.</li>
+    </ul>
+    <p>Where the law requires it, we'll ask for your fresh consent before the change takes effect.</p>
+    <p>Continued use of DIVR after a change to this policy takes effect means you accept the updated policy. If you don't agree with a change, you can delete your account at any time from <strong>Settings → Account → Delete Account</strong>, and your data will be removed in line with Section 5.</p>
+
+    <h2 id="contact"><span class="num">10.</span> Contact us</h2>
+    <p>If you have questions about this Privacy Policy, want to exercise your rights, or just want to talk through anything about how we handle your data, please get in touch.</p>
+    <p><strong>Rafferty Clarke Mathews</strong><br/>
+    Email: <a href="mailto:hello@divrhq.com">hello@divrhq.com</a></p>
+    <p>We aim to reply to all privacy-related enquiries within five working days, and to formal data requests within the timeframes set out in Section 6.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand">DIVR</div>
+      <p class="footer-tagline">Where divers connect.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="community.html">Community Guidelines</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DIVR. All rights reserved.</span>
+    <span>Made for divers, everywhere 🌊</span>
+  </div>
+</footer>
+
+</body>
+</html>

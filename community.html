@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Guidelines — DIVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #00b4ff;
+    --blue-bright: #1ec8ff;
+    --blue-deep: #0095d9;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #141414;
+    --dark-soft: #1c1c1c;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-soft: #b3b3b3;
+    --warning: #ffb547;
+    --positive: #4ade80;
+    --negative: #ff6b6b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 1.5rem; letter-spacing: -0.02em; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-back {
+    color: var(--grey-soft); text-decoration: none;
+    font-weight: 500; font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  .page-header {
+    padding: 10rem 2rem 4rem;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at top, rgba(0, 180, 255, 0.18) 0%, transparent 60%),
+      var(--black);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .page-eyebrow {
+    font-weight: 600; color: var(--blue);
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .page-title {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .page-subtitle {
+    color: var(--grey-soft);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+  }
+  .page-meta {
+    color: var(--grey); font-size: 0.95rem;
+    margin-top: 1.5rem;
+  }
+
+  .page-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 7rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+  }
+  .toc-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--grey);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .toc ul { list-style: none; }
+  .toc a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--grey-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-left: 2px solid transparent;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc a:hover { color: var(--white); border-color: rgba(0, 180, 255, 0.4); }
+
+  .content { max-width: 720px; }
+  .content h2 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    scroll-margin-top: 6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .content h2 .icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    color: var(--blue);
+    background: rgba(0, 180, 255, 0.12);
+    border-radius: 10px;
+    padding: 7px;
+    border: 1px solid rgba(0, 180, 255, 0.25);
+  }
+  .content h2 .icon svg { width: 100%; height: 100%; }
+  .content h2:first-of-type { margin-top: 0; }
+  .content h3 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .content p {
+    color: var(--grey-soft);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .content ul, .content ol {
+    color: var(--grey-soft);
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .content li { margin-bottom: 0.5rem; }
+  .content a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    transition: border-color 0.2s;
+  }
+  .content a:hover { border-color: var(--blue); }
+  .content strong { color: var(--white); font-weight: 600; }
+
+  .intro-card {
+    background: rgba(0, 180, 255, 0.06);
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .intro-card p:last-child { margin-bottom: 0; }
+
+  /* Do/Don't lists */
+  .rule-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .rule-col {
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid;
+  }
+  .rule-col.do {
+    background: rgba(74, 222, 128, 0.06);
+    border-color: rgba(74, 222, 128, 0.2);
+  }
+  .rule-col.dont {
+    background: rgba(255, 107, 107, 0.06);
+    border-color: rgba(255, 107, 107, 0.2);
+  }
+  .rule-col h4 {
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .rule-col.do h4 { color: var(--positive); }
+  .rule-col.dont h4 { color: var(--negative); }
+  .rule-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--grey-soft);
+    font-size: 0.92rem;
+  }
+  .rule-col li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .rule-col li::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .rule-col.do li::before { content: '✓'; color: var(--positive); font-weight: 700; }
+  .rule-col.dont li::before { content: '✗'; color: var(--negative); font-weight: 700; }
+
+  .callout {
+    background: rgba(255, 181, 71, 0.08);
+    border: 1px solid rgba(255, 181, 71, 0.3);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .callout strong { color: var(--warning); }
+
+  .report-cta {
+    background: linear-gradient(135deg, rgba(0, 180, 255, 0.12), rgba(0, 180, 255, 0.04));
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .report-cta h3 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .report-cta a {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--blue);
+    color: var(--black) !important;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    border: none !important;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .report-cta a:hover { background: var(--blue-bright); transform: translateY(-1px); }
+
+  footer {
+    background: var(--black);
+    color: var(--grey-soft);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-content {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand {
+    font-family: 'Mitr', sans-serif; font-weight: 700;
+    font-size: 2rem; color: var(--white); letter-spacing: -0.02em;
+  }
+  .footer-tagline {
+    font-family: 'Mitr', sans-serif;
+    margin-top: 0.5rem; color: var(--blue);
+  }
+  .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: var(--grey-soft);
+    text-decoration: none; margin-bottom: 0.6rem;
+    font-size: 0.95rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--blue); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.85rem; color: var(--grey);
+  }
+
+  @media (max-width: 900px) {
+    .page-body { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; }
+    .toc { position: static; max-height: none; }
+    .rule-block { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-header { padding: 8rem 1.5rem 3rem; }
+    .footer-content { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">DIVR</a>
+  <a href="/" class="nav-back">← Back to DIVR</a>
+</nav>
+
+<header class="page-header">
+  <div class="page-eyebrow">Community</div>
+  <h1 class="page-title">Community Guidelines</h1>
+  <p class="page-subtitle">DIVR is a space for divers to share, connect, and inspire. These guidelines keep it that way.</p>
+  <p class="page-meta">Last updated: 11 May 2026</p>
+</header>
+
+<div class="page-body">
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <ul>
+      <li><a href="#welcome">Welcome to DIVR</a></li>
+      <li><a href="#respect">1. Respect every diver</a></li>
+      <li><a href="#authenticity">2. Be real</a></li>
+      <li><a href="#safety">3. Don't encourage unsafe diving</a></li>
+      <li><a href="#environment">4. Protect the ocean</a></li>
+      <li><a href="#locations">5. Share locations responsibly</a></li>
+      <li><a href="#content">6. Keep content appropriate</a></li>
+      <li><a href="#privacy">7. Respect others' privacy</a></li>
+      <li><a href="#spam">8. No spam or manipulation</a></li>
+      <li><a href="#ip">9. Only post what's yours</a></li>
+      <li><a href="#reporting">Reporting & enforcement</a></li>
+    </ul>
+  </aside>
+
+  <article class="content">
+    <section id="welcome">
+      <div class="intro-card">
+        <p>DIVR exists because diving is better when it's shared — the sites, the stories, the people we dive with. Our community is built on the same things that make a dive trip great: respect, honesty, and looking out for each other.</p>
+        <p>These guidelines apply to <strong>everything you post</strong> on DIVR — your dive logs, photos, comments, profile, messages, anything you share. Breaking them can lead to your content being removed, your account being suspended, or in serious cases, a permanent ban.</p>
+      </div>
+    </section>
+
+    <h2 id="respect">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a4 4 0 00-3-3.85"/></svg></span>
+      Respect every diver
+    </h2>
+    <p>Diving brings together people from every background, country, and skill level. The community works because we treat each other with respect — beginner or pro, scuba or freediver, in or out of the water.</p>
+    <div class="rule-block">
+      <div class="rule-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Disagree about gear, technique, or sites — politely</li>
+          <li>Welcome new divers and answer questions kindly</li>
+          <li>Celebrate other people's dives, even if they're "easier" than yours</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Harass, bully, or threaten anyone</li>
+          <li>Attack people based on race, gender, sexuality, religion, nationality, disability, or any other identity</li>
+          <li>Gatekeep — "real divers don't…" comments aren't welcome</li>
+          <li>Stalk, dox, or repeatedly contact someone after they've asked you to stop</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 id="authenticity">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg></span>
+      Be real
+    </h2>
+    <p>DIVR is different from other social platforms because what you share is grounded in real dives — real stats, real sites, real moments. That trust is the most valuable thing we have.</p>
+    <div class="rule-block">
+      <div class="rule-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Log accurate stats — depth, time, conditions as they were</li>
+          <li>Tag the actual dive site you dived</li>
+          <li>Edit honest mistakes if you spot them later</li>
+          <li>Be yourself — one account per person</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Log fake or inflated dives to look more experienced</li>
+          <li>Falsify depths, times, or other stats</li>
+          <li>Impersonate other divers, professionals, or organisations</li>
+          <li>Create multiple accounts to mislead the community</li>
+          <li>Pretend AI-extracted data is verified when you haven't checked it</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 id="safety">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></span>
+      Don't encourage unsafe diving
+    </h2>
+    <p>Diving is wonderful, but it can also be dangerous. We care about every diver in this community making it back to the surface — and back to the next dive.</p>
+    <div class="rule-block">
+      <div class="rule-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Talk openly about close calls, incidents, and lessons learned</li>
+          <li>Share safety reminders and best practices</li>
+          <li>Be honest about depths and conditions so others can judge for themselves</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Encourage diving beyond someone's training or certification</li>
+          <li>Glorify dangerous practices — solo diving without proper training, ignoring safety stops, deep air dives, etc.</li>
+          <li>Mock or shame divers for being cautious</li>
+          <li>Share content designed to peer-pressure others into unsafe behaviour</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>Reminder:</strong> DIVR is a logging and social app — not a dive computer, planner, or safety device. Always dive within your training, use proper equipment, and follow established safe diving practices. See our <a href="terms.html#safety">Terms of Service</a> for the full safety disclaimer.</p>
+    </div>
+
+    <h2 id="environment">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 0a4 4 0 014 4 4 4 0 11-8 0 4 4 0 014-4zm0 14v6"/><path d="M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6m8 0h6"/></svg></span>
+      Protect the ocean
+    </h2>
+    <p>DIVR is by divers, for divers — and divers are stewards of the underwater world. What we post on this app reflects the values we hold underwater.</p>
+    <div class="rule-block">
+      <div class="rule-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Share marine life encounters that respect wildlife</li>
+          <li>Promote conservation, cleanups, and responsible tourism</li>
+          <li>Educate others about local rules and marine protected areas</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Post content showing wildlife harassment — chasing, touching, or riding marine animals</li>
+          <li>Share content of poaching, illegal collecting, or coral damage</li>
+          <li>Promote spearfishing in protected areas or of protected species</li>
+          <li>Encourage breaking local marine regulations</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 id="locations">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      Share locations responsibly
+    </h2>
+    <p>Pinning dive sites is one of the best things about DIVR — it's how the community discovers new places. But location sharing carries responsibilities.</p>
+    <div class="rule-block">
+      <div class="rule-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Pin established, publicly known dive sites accurately</li>
+          <li>Use general location pins (e.g. nearest port or town) for sensitive sites</li>
+          <li>Ask before sharing the precise location of a site someone else showed you</li>
+          <li>Respect requests from operators or local communities to keep sites private</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Reveal protected sites, restricted military areas, or shipwrecks where disclosure is prohibited</li>
+          <li>Share the precise GPS of fragile ecosystems if local guidance is to keep them quiet</li>
+          <li>Post real-time locations that could put divers, vessels, or property at risk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>If your role is sensitive</strong> — military, law enforcement, scientific research at undisclosed sites — think carefully about what you make public. You can always keep dives private or share only specific stats without the location.</p>
+    </div>
+
+    <h2 id="content">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+      Keep content appropriate
+    </h2>
+    <p>DIVR is open to divers of all ages (13+). Keep your content suitable for that audience.</p>
+    <p>The following are not allowed anywhere on DIVR:</p>
+    <ul>
+      <li><strong>Nudity or sexual content</strong> — including sexualised imagery, even in artistic or "freediving" framing</li>
+      <li><strong>Graphic violence or gore</strong> — including detailed imagery of dive injuries or accidents (you can describe an incident in text for educational purposes)</li>
+      <li><strong>Hate symbols or extremist content</strong> — flags, slogans, or imagery associated with terrorist, extremist, or hate groups</li>
+      <li><strong>Illegal content</strong> — anything that violates the laws of your country or the country where DIVR operates</li>
+      <li><strong>Content harmful to minors</strong> — no exceptions. We report violations to relevant authorities</li>
+      <li><strong>Self-harm content</strong> — anything that promotes, glorifies, or provides instructions for self-harm or suicide</li>
+      <li><strong>Drugs and regulated goods</strong> — selling or promoting illegal drugs, weapons, or other restricted items</li>
+    </ul>
+
+    <h2 id="privacy">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+      Respect others' privacy
+    </h2>
+    <p>The people you dive with are part of your story — but they get a say in how that story is told.</p>
+    <ul>
+      <li><strong>Don't tag people in dives they didn't actually do</strong> with you, or in locations they haven't consented to being associated with</li>
+      <li><strong>Don't post identifiable photos of others without their permission</strong> — especially close-ups, group shots where someone's the focus, or photos that reveal where they live or work</li>
+      <li><strong>Never share private information</strong> — addresses, phone numbers, employers, or other personal details that aren't already public</li>
+      <li><strong>Don't share private messages or photos</strong> that someone sent to you privately</li>
+      <li><strong>Photos of children</strong> require parental or guardian consent</li>
+    </ul>
+
+    <h2 id="spam">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></span>
+      No spam or manipulation
+    </h2>
+    <p>Feeds work when content is genuine. Don't game the system.</p>
+    <ul>
+      <li>No buying, selling, or trading followers, likes, or comments</li>
+      <li>No coordinated inauthentic behaviour — using multiple accounts to artificially amplify content</li>
+      <li>No mass-following, mass-unfollowing, or other engagement-farming tactics</li>
+      <li>No repetitive promotional posts — DIVR is not a free advertising platform for dive shops, schools, or gear brands. Genuine recommendations are welcome; spam is not.</li>
+      <li>No phishing, scams, or links to malicious sites</li>
+      <li>No automated posting tools, bots, or scrapers</li>
+      <li>No abuse of the AI scanning feature — submitting non-logbook content at scale to consume our infrastructure</li>
+    </ul>
+
+    <h2 id="ip">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      Only post what's yours
+    </h2>
+    <p>You own your content — and you should only post content that's yours to post.</p>
+    <ul>
+      <li><strong>Photos and videos</strong> must be your own or used with permission from the person who took them</li>
+      <li><strong>Don't republish</strong> other people's dive logs, blog posts, or content without credit and permission</li>
+      <li><strong>Don't post copyrighted material</strong> — music, footage, or images you don't have rights to</li>
+      <li>If you believe someone has posted your copyrighted content on DIVR, email <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> with details and we'll review promptly</li>
+    </ul>
+
+    <h2 id="reporting">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+      Reporting & enforcement
+    </h2>
+
+    <h3>How to report something</h3>
+    <p>If you see content or behaviour that breaks these guidelines:</p>
+    <ul>
+      <li><strong>In the app</strong> — tap the ⋯ menu on any post, profile, or comment and select <em>Report</em>. Pick the reason that fits and we'll take it from there.</li>
+      <li><strong>By email</strong> — for anything serious or anything you can't report in-app, email <a href="mailto:hello@divrhq.com">hello@divrhq.com</a> with as much detail as you can: links, screenshots, account names, dates.</li>
+      <li><strong>Imminent danger</strong> — if someone is in immediate physical danger or you're aware of illegal activity, please contact local emergency services first, then let us know.</li>
+    </ul>
+
+    <h3>What happens after you report</h3>
+    <ul>
+      <li>We review every report. Most are looked at within 48 hours.</li>
+      <li>Reports are confidential — the reported user doesn't see who reported them.</li>
+      <li>Depending on what we find, action may range from a warning, to content removal, to a temporary suspension, to a permanent ban.</li>
+      <li>For serious violations — content involving minors, credible threats, illegal activity — we may report to law enforcement.</li>
+    </ul>
+
+    <h3>If your content or account is actioned</h3>
+    <ul>
+      <li>We'll tell you what happened and why.</li>
+      <li>You can appeal by replying to that notice or emailing <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>.</li>
+      <li>Appeals are reviewed by a human, separate from the original decision.</li>
+      <li>Bans for serious violations (e.g. content involving minors, repeated harassment, fraud) are final and not eligible for appeal.</li>
+    </ul>
+
+    <h3>Don't abuse reporting</h3>
+    <p>Reporting is for genuine concerns. Repeated bad-faith reports — to harass someone or silence disagreement — are themselves a violation of these guidelines.</p>
+
+    <div class="report-cta">
+      <h3>See something off?</h3>
+      <p>The community is healthier when divers look out for each other. Don't hesitate to report.</p>
+      <a href="mailto:hello@divrhq.com">Contact us</a>
+    </div>
+
+    <h2 id="closing" style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 3rem;">
+      One last thing
+    </h2>
+    <p>These guidelines aren't here to police the community — they're here to protect it. The vast majority of divers on DIVR are kind, generous, and curious, and we want to keep it that way.</p>
+    <p>If you're ever unsure whether something crosses a line, ask yourself: <em>would I say this, share this, or do this if I were standing on the boat with the people who'd see it?</em> If the answer is no, it probably doesn't belong on DIVR.</p>
+    <p>Thanks for being part of the community. Safe diving. 🤿</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand">DIVR</div>
+      <p class="footer-tagline">Where divers connect.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <a href="mailto:hello@divrhq.com">hello@divrhq.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="community.html">Community Guidelines</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DIVR. All rights reserved.</span>
+    <span>Made for divers, everywhere 🌊</span>
+  </div>
+</footer>
+
+</body>
+</html>
