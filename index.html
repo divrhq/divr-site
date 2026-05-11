@@ -112,8 +112,9 @@
   .hero-letters-mobile { display: none; }
 
   /* === MOBILE 2x2 LAYOUT ===
-     Each letter is a container holding a <video>, with a CSS mask shaped
-     like the letter applied to BOTH the video and a gradient fallback. */
+     Each letter is a container holding a <video>, masked to the letter shape
+     using SVG masks defined inline in the document (so they inherit access
+     to the Mitr font). Avoids the iOS Safari foreignObject-clipping bug. */
   .mobile-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -126,9 +127,8 @@
     position: relative;
     overflow: hidden;
   }
-  /* Gradient fallback drawn via a pseudo-element behind the video. It shares
-     the same mask shape so the gradient appears in the letter outline if the
-     video fails to load. */
+  /* Gradient fallback behind the video — shares the same mask so it appears
+     in the letter outline if the video fails to load. */
   .mobile-letter::before {
     content: '';
     position: absolute;
@@ -144,35 +144,26 @@
     object-fit: cover;
     display: block;
   }
-  /* Apply the letter-shaped mask to BOTH the pseudo gradient and the video,
-     so whichever is present shows up clipped to the letter shape. */
+  /* Apply the in-document SVG mask references to BOTH gradient and video */
   .mobile-letter-d::before,
   .mobile-letter-d video {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>D</text></svg>");
-            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>D</text></svg>");
-    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask: url(#mask-D) center / 100% 100% no-repeat;
+            mask: url(#mask-D) center / 100% 100% no-repeat;
   }
   .mobile-letter-i::before,
   .mobile-letter-i video {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>I</text></svg>");
-            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>I</text></svg>");
-    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask: url(#mask-I) center / 100% 100% no-repeat;
+            mask: url(#mask-I) center / 100% 100% no-repeat;
   }
   .mobile-letter-v::before,
   .mobile-letter-v video {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>V</text></svg>");
-            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>V</text></svg>");
-    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask: url(#mask-V) center / 100% 100% no-repeat;
+            mask: url(#mask-V) center / 100% 100% no-repeat;
   }
   .mobile-letter-r::before,
   .mobile-letter-r video {
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>R</text></svg>");
-            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110' preserveAspectRatio='xMidYMid meet'><text x='50' y='95' text-anchor='middle' font-family='Mitr, sans-serif' font-weight='700' font-size='120' fill='black'>R</text></svg>");
-    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask: url(#mask-R) center / 100% 100% no-repeat;
+            mask: url(#mask-R) center / 100% 100% no-repeat;
   }
 
   .hero-letters svg {
@@ -616,6 +607,26 @@
 </style>
 </head>
 <body>
+
+<!-- Hidden SVG defining masks for the mobile letter videos. Defined here so
+     the <text> inside each mask inherits the Mitr font from the document's
+     loaded CSS — a constraint that data-URI masks can't satisfy. -->
+<svg width="0" height="0" style="position: absolute; pointer-events: none;" aria-hidden="true">
+  <defs>
+    <mask id="mask-D" maskContentUnits="objectBoundingBox">
+      <text x="0.5" y="0.95" text-anchor="middle" font-family="Mitr, sans-serif" font-weight="700" font-size="1.2" fill="white">D</text>
+    </mask>
+    <mask id="mask-I" maskContentUnits="objectBoundingBox">
+      <text x="0.5" y="0.95" text-anchor="middle" font-family="Mitr, sans-serif" font-weight="700" font-size="1.2" fill="white">I</text>
+    </mask>
+    <mask id="mask-V" maskContentUnits="objectBoundingBox">
+      <text x="0.5" y="0.95" text-anchor="middle" font-family="Mitr, sans-serif" font-weight="700" font-size="1.2" fill="white">V</text>
+    </mask>
+    <mask id="mask-R" maskContentUnits="objectBoundingBox">
+      <text x="0.5" y="0.95" text-anchor="middle" font-family="Mitr, sans-serif" font-weight="700" font-size="1.2" fill="white">R</text>
+    </mask>
+  </defs>
+</svg>
 
 <nav>
   <div class="nav-logo">DIVR</div>
