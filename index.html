@@ -806,9 +806,13 @@
           </span>
         </a>
 
-        <form class="signup-form" name="waitlist" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="waitlist" />
-          <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <form class="signup-form" method="POST" action="https://api.staticforms.dev/submit">
+          <input type="hidden" name="apiKey" value="sf_c17f9aa99882773716632777" />
+          <input type="hidden" name="subject" value="New DIVR waitlist signup" />
+          <input type="hidden" name="redirectTo" value="https://divrhq.com/success.html" />
+          <input type="hidden" name="replyTo" value="@" />
+          <!-- Honeypot field — bots fill this, real users don't. Hidden via CSS. -->
+          <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px;" aria-hidden="true" />
           <input type="email" name="email" placeholder="your@email.com" required />
           <button type="submit">Notify me</button>
         </form>
@@ -849,12 +853,6 @@
     video.play().catch(() => {});
   });
 </script>
-
-<!-- Hidden static form for Netlify Forms detection (only needed for drag-and-drop deploys) -->
-<form name="waitlist" netlify netlify-honeypot="bot-field" hidden>
-  <input type="email" name="email" />
-  <input name="bot-field" />
-</form>
 
 </body>
 </html>
