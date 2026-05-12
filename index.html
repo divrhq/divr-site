@@ -78,6 +78,7 @@
     opacity: 0; animation: fadeUp 1s ease-out 0.4s forwards;
     filter: drop-shadow(0 0 50px rgba(0, 180, 255, 0.3));
     line-height: 0;
+    pointer-events: none; /* Decorative — clicks should pass through to elements below */
   }
 
   /* By default (desktop) show the wide single-row layout, hide the stacked mobile one. */
@@ -177,7 +178,7 @@
     margin-top: 2.5rem; display: flex; gap: 1rem;
     flex-wrap: wrap; justify-content: center; opacity: 0;
     animation: fadeUp 1s ease-out 1.1s forwards;
-    position: relative; z-index: 2;
+    position: relative; z-index: 5;
   }
   .btn-primary {
     background: var(--blue); color: var(--black);
